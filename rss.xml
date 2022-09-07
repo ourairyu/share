@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     
-    <title>分享中心</title>
+    <title>欧雷的分享</title>
     <description></description>
     <link>https://share.ourai.ws/</link>
     <atom:link href="https://share.ourai.ws/rss.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 07 Sep 2022 11:02:24 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Sep 2022 11:02:24 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Sep 2022 11:15:08 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Sep 2022 11:15:08 +0800</lastBuildDate>
     <language>zh-CN</language>
     <generator>Jekyll v3.0.3</generator>
     
