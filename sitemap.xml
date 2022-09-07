@@ -7,6 +7,15 @@
 <loc>https://ourai.ws/</loc>
 </url>
 <url>
+<loc>https://ourai.ws/notes/</loc>
+</url>
+<url>
+<loc>https://ourai.ws/notes/tips-of-geolocation-api/</loc>
+</url>
+<url>
+<loc>https://ourai.ws/notes/tips-of-wechat-miniprogram-development/</loc>
+</url>
+<url>
 <loc>https://ourai.ws/notes/change-buttons-bahavior-globally/</loc>
 </url>
 <url>
@@ -17,11 +26,5 @@
 </url>
 <url>
 <loc>https://ourai.ws/notes/things-about-react-components/</loc>
-</url>
-<url>
-<loc>https://ourai.ws/notes/tips-of-geolocation-api/</loc>
-</url>
-<url>
-<loc>https://ourai.ws/notes/tips-of-wechat-miniprogram-development/</loc>
 </url>
 </urlset>
