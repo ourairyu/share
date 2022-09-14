@@ -6,5 +6,6 @@ Disallow: /categories/
 Disallow: /tags/
 Disallow: /archives/
 Disallow: /notes/
+Disallow: /docs/
 
 Disallow: /404.html
