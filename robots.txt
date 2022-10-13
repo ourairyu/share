@@ -7,5 +7,6 @@ Disallow: /tags/
 Disallow: /archives/
 Disallow: /notes/
 Disallow: /docs/
+Disallow: /bookmarks/
 
 Disallow: /404.html
