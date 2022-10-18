@@ -165,28 +165,7 @@
   <span class="nx">searchEnabled</span>: <span class="kt">boolean</span><span class="p">;</span>
   <span class="nx">matchAllEnabled</span>: <span class="kt">boolean</span><span class="p">;</span>
   <span class="nx">answers</span>: <span class="kt">Answer</span><span class="p">[];</span>
-<span class="p">}</span></code></pre></figure> <h4 id="section-17">文件拆分</h4> <p>将 <code>knowledge</code> 模块 <code>views/knowledge-detail</code> 文件夹内的文件在 <code>question-and-answer</code> 模块下拆分为以下几个视图：</p> <figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>src/domain
-   └── question-and-answer
-       └── views
-           ├── answer-detail
-           │   ├── AnswerDetail.vue
-           │   └── index.ts
-           ├── answer-form
-           │   ├── AnswerForm.vue
-           │   └── index.ts
-           ├── question-and-answer-data-detail
-           │   ├── AnswerListField.vue
-           │   ├── QuestionAndAnswerDataDetail.vue
-           │   └── index.ts
-           └── question-form
-               └── index.ts</code></pre></figure> <p>并把答案指令相关的转移到 <code>command</code> 模块：</p> <figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>src/domain
-   └── command
-       └── views
-           ├── command-data-form
-           │   ├── CommandParamListField.vue
-           │   └── index.ts
-           └── command-data-list
-               └── index.ts</code></pre></figure> <h4 id="section-18">数据服务</h4> <p>涉及到的 HTTP API 有：</p> <figure class="highlight"><pre><code class="language-ts" data-lang="ts"><span></span><span class="c1">// 获取问题详情</span>
+<span class="p">}</span></code></pre></figure> <h4 id="section-17">数据服务</h4> <p>涉及到的 HTTP API 有：</p> <figure class="highlight"><pre><code class="language-ts" data-lang="ts"><span></span><span class="c1">// 获取问题详情</span>
 <span class="k">async</span> <span class="kd">function</span> <span class="nx">getKnowledgeDetailById</span><span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">httpClient</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`/api/standardQuestion/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="p">}</span>
@@ -194,6 +173,11 @@
 <span class="c1">// 新增问题</span>
 <span class="k">async</span> <span class="kd">function</span> <span class="nx">insertQuestion</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">httpClient</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/api/knowledge/v2/add&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 更新问题</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">updateQuestion</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">httpClient</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/api/standardQuestion/merge&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="c1">// 删除问题</span>
@@ -237,4 +221,39 @@
 <span class="c1">// 在 `question-and-answer` 模块中已经定义</span>
 <span class="k">async</span> <span class="kd">function</span> <span class="nx">removeAnswer</span><span class="p">({</span> <span class="nx">answerId</span> <span class="p">})</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">httpClient</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/api/answer/delete&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">answerId</span> <span class="p">}</span> <span class="p">});</span>
-<span class="p">}</span></code></pre></figure> <h4 id="section-19">交互流</h4> <p>说明问题与答案相关的交互及状态变更。</p> <h5 id="section-20">问题本身</h5> <p>问题本身显示的字段及在新增问题时的默认状态：</p> <table> <thead> <tr> <th>字段</th> <th>必填</th> <th>默认状态</th> </tr> </thead> <tbody> <tr> <td>标题</td> <td>是</td> <td>-</td> </tr> <tr> <td>目录</td> <td>是</td> <td>选中「业务知识」</td> </tr> <tr> <td>标签</td> <td>否</td> <td>-</td> </tr> <tr> <td>全匹配开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>推荐服务开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>搜索服务开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>答案列表</td> <td>否</td> <td>有一条未保存的空答案</td> </tr> </tbody> </table> <p>在查看详情与编辑时，开关类字段可以在切换状态时直接持久化。</p> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>返回</td> <td>返回到上一页而非返回到列表页</td> </tr> <tr> <td>编辑</td> <td>弹出问题编辑对话框</td> </tr> <tr> <td>删除</td> <td>删除成功后返回到问题列表</td> </tr> <tr> <td>取消</td> <td>同「返回」，仅在新增问题时可见</td> </tr> <tr> <td>保存</td> <td>保存成功后替换跳转到问题详情页，仅在新增问题时可见</td> </tr> <tr> <td>编辑标签</td> <td>弹出标签操作对话框</td> </tr> </tbody> </table> <h5 id="section-21">答案列表</h5> <p>根据 URL 传参决定默认选中哪个答案，并根据情况设为编辑状态。</p> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>新增</td> <td>有未保存答案时不能新增空答案并进行提示</td> </tr> <tr> <td>查看</td> <td>缓存处于编辑状态的答案的数据并以只读状态查看指定答案</td> </tr> <tr> <td>编辑</td> <td>有处于编辑状态的答案时不能编辑指定答案并进行提示</td> </tr> <tr> <td>删除</td> <td>删除的是仅剩的一条答案时会同时删除问题并在删除成功后返回到问题列表；删除当前选中的答案成功后选中剩余答案中的第一条</td> </tr> </tbody> </table> <h5 id="section-22">答案本身</h5> <p>答案本身显示的字段及在新增答案时的默认状态：</p> <table> <thead> <tr> <th>字段</th> <th>必填</th> <th>默认状态</th> </tr> </thead> <tbody> <tr> <td>答案正文</td> <td>是</td> <td>-</td> </tr> <tr> <td>内部提示</td> <td>受开关控制</td> <td>显示开关为「关闭」状态，设为「开启」时内容必填</td> </tr> <tr> <td>维度</td> <td>否</td> <td>-</td> </tr> <tr> <td>指令</td> <td>否</td> <td>-</td> </tr> <tr> <td>审核状态</td> <td>否</td> <td>仅在查看答案详情和编辑答案时显示</td> </tr> </tbody> </table> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>取消</td> <td>选中答案进入只读状态</td> </tr> <tr> <td>保存</td> <td>选中答案数据持久化后进入只读状态</td> </tr> </tbody> </table> <h4 id="section-23">数据流</h4> <p>整体逻辑是从 URL 中拿到必要参数后向后端请求问题详情数据，初始化问题本身的信息展示。</p> </div> <footer class="Article-footer col-md-3"><section class="Widget Widget--toc"> <div class="Widget-header"> <h2 class="Widget-title">目录</h2> </div> <div class="Widget-body"></div> </section> </footer> </article> </ourai-doc> <script type="text/javascript" src="/assets/pages/doc-c880dc4660dee6b589b91fa90d96d4362f806002998d7fba77f76c8db76c973d.js"></script><script type="text/javascript" src="/assets/components-a266f21fe1dfd61bebf40e74872cbf901eb3e201f7d33e9e5d5af9a55f4b24ea.js"></script> <script type="text/javascript" src="/assets/initializers/time-8d7a529a66ae6cb53c2283d21fd6a12c538b8473dd5bd76458366d09adce7bf6.js"></script><script type="text/javascript" src="/assets/initializers/lazyload-44b7df8a9282d598284d522e64d6be9ac88d466f3c4a734a514303e99347b2c9.js"></script> </body> </html>
+<span class="p">}</span></code></pre></figure> <h4 id="section-18">界面交互</h4> <p>说明问题与答案相关的交互及状态变更。</p> <h5 id="section-19">问题本身</h5> <p>问题本身显示的字段及在新增问题时的默认状态：</p> <table> <thead> <tr> <th>字段</th> <th>必填</th> <th>默认状态</th> </tr> </thead> <tbody> <tr> <td>标题</td> <td>是</td> <td>-</td> </tr> <tr> <td>目录</td> <td>是</td> <td>选中「业务知识」</td> </tr> <tr> <td>标签</td> <td>否</td> <td>-</td> </tr> <tr> <td>全匹配开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>推荐服务开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>搜索服务开关</td> <td>否</td> <td>开启</td> </tr> <tr> <td>答案列表</td> <td>否</td> <td>有一条未保存的空答案</td> </tr> </tbody> </table> <p>在查看详情与编辑时，开关类字段可以在切换状态时直接持久化。</p> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>返回</td> <td>返回到上一页而非返回到列表页</td> </tr> <tr> <td>编辑</td> <td>弹出问题编辑对话框</td> </tr> <tr> <td>删除</td> <td>删除成功后返回到问题列表</td> </tr> <tr> <td>取消</td> <td>同「返回」，仅在新增问题时可见</td> </tr> <tr> <td>保存</td> <td>保存成功后替换跳转到问题详情页，仅在新增问题时可见</td> </tr> <tr> <td>编辑标签</td> <td>弹出标签操作对话框</td> </tr> </tbody> </table> <h5 id="section-20">答案列表</h5> <p>根据 URL 传参决定默认选中哪个答案，并根据情况设为编辑状态。</p> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>新增</td> <td>有未保存答案时不能新增空答案并进行提示</td> </tr> <tr> <td>查看</td> <td>缓存处于编辑状态的答案的数据并以只读状态查看指定答案</td> </tr> <tr> <td>编辑</td> <td>有处于编辑状态的答案时不能编辑指定答案并进行提示</td> </tr> <tr> <td>删除</td> <td>删除的是仅剩的一条答案时会同时删除问题并在删除成功后返回到问题列表；删除当前选中的答案成功后选中剩余答案中的第一条</td> </tr> </tbody> </table> <h5 id="section-21">答案本身</h5> <p>答案本身显示的字段及在新增答案时的默认状态：</p> <table> <thead> <tr> <th>字段</th> <th>必填</th> <th>默认状态</th> </tr> </thead> <tbody> <tr> <td>答案正文</td> <td>是</td> <td>-</td> </tr> <tr> <td>内部提示</td> <td>受开关控制</td> <td>显示开关为「关闭」状态，设为「开启」时内容必填</td> </tr> <tr> <td>维度</td> <td>否</td> <td>-</td> </tr> <tr> <td>指令</td> <td>否</td> <td>-</td> </tr> <tr> <td>审核状态</td> <td>否</td> <td>仅在查看答案详情和编辑答案时显示</td> </tr> </tbody> </table> <p>相关操作有：</p> <table> <thead> <tr> <th>操作</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>取消</td> <td>选中答案进入只读状态</td> </tr> <tr> <td>保存</td> <td>选中答案数据持久化后进入只读状态</td> </tr> </tbody> </table> <h4 id="section-22">数据交互</h4> <p>整体逻辑是从 URL 中拿到必要参数后向后端请求问题详情数据，初始化问题本身的信息展示。</p> <p>在答案列表字段部件创建后获取通用的维度和指令相关数据，并根据问题 ID 获取答案列表数据，再将这些数据根据展示需要进行整合。</p> <h4 id="section-23">文件拆分</h4> <p>将 <code>knowledge</code> 模块 <code>views/knowledge-detail</code> 文件夹内的文件在 <code>question-and-answer</code> 模块下拆分为以下几个视图（日后根据情况再考虑将答案相关的拆分到 <code>answer</code> 模块）：</p> <figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>src/domain
+   └── question-and-answer
+       ├── views
+       │   ├── answer-detail
+       │   │   ├── AnswerDetail.vue
+       │   │   └── index.ts
+       │   ├── answer-form
+       │   │   ├── AnswerForm.vue
+       │   │   └── index.ts
+       │   ├── question-and-answer-data-detail
+       │   │   ├── EditTagAction.vue
+       │   │   ├── EditLogField.vue
+       │   │   ├── QuestionAndAnswerDataDetail.vue
+       │   │   └── index.ts
+       │   ├── question-and-answer-data-form
+       │   │   ├── QuestionAndAnswerDataForm.vue
+       │   │   └── index.ts
+       │   └── question-form
+       │       └── index.ts
+       └── widgets
+           ├── answer-list-field
+           │   ├── AnswerListField.vue
+           │   └── index.ts
+           ├── command-list-field
+           │   ├── CommandListField.vue
+           │   └── index.ts
+           └── service-switch-field
+               ├── ServiceSwitchField.vue
+               └── index.ts</code></pre></figure> <p>并把答案指令相关的转移到 <code>command</code> 模块：</p> <figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>src/domain
+   └── command
+       └── views
+           ├── command-data-form
+           │   ├── CommandParamListField.vue
+           │   └── index.ts
+           └── command-data-list
+               └── index.ts</code></pre></figure> </div> <footer class="Article-footer col-md-3"><section class="Widget Widget--toc"> <div class="Widget-header"> <h2 class="Widget-title">目录</h2> </div> <div class="Widget-body"></div> </section> </footer> </article> </ourai-doc> <script type="text/javascript" src="/assets/pages/doc-c880dc4660dee6b589b91fa90d96d4362f806002998d7fba77f76c8db76c973d.js"></script><script type="text/javascript" src="/assets/components-a266f21fe1dfd61bebf40e74872cbf901eb3e201f7d33e9e5d5af9a55f4b24ea.js"></script> <script type="text/javascript" src="/assets/initializers/time-8d7a529a66ae6cb53c2283d21fd6a12c538b8473dd5bd76458366d09adce7bf6.js"></script><script type="text/javascript" src="/assets/initializers/lazyload-44b7df8a9282d598284d522e64d6be9ac88d466f3c4a734a514303e99347b2c9.js"></script> </body> </html>
