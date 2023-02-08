@@ -5,8 +5,9 @@ Disallow: /assets/
 Disallow: /categories/
 Disallow: /tags/
 Disallow: /archives/
-Disallow: /notes/
 Disallow: /docs/
+Disallow: /notes/
+Disallow: /weeklies/
 Disallow: /bookmarks/
 
 Disallow: /404.html
