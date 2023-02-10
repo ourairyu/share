@@ -8,6 +8,7 @@ Disallow: /archives/
 Disallow: /docs/
 Disallow: /notes/
 Disallow: /weeklies/
+Disallow: /projects/
 Disallow: /bookmarks/
 
 Disallow: /404.html
