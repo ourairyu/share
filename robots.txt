@@ -6,8 +6,6 @@ Disallow: /categories/
 Disallow: /tags/
 Disallow: /archives/
 Disallow: /docs/
-Disallow: /notes/
-Disallow: /weeklies/
 Disallow: /projects/
 Disallow: /repos/
 Disallow: /topics/
