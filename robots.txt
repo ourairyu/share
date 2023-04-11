@@ -9,6 +9,7 @@ Disallow: /docs/
 Disallow: /projects/
 Disallow: /repos/
 Disallow: /topics/
+Disallow: /routes/
 Disallow: /bookmarks/
 
 Disallow: /404.html
