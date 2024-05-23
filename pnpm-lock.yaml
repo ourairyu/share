@@ -11,6 +11,7 @@ specifiers:
   hexo-renderer-sass: ^0.4.0
   hexo-server: ^3.0.0
   hexo-theme-lime: 0.0.0-alpha.3
+  js-yaml: 4.1.0
   ksio: 0.0.3
 
 dependencies:
@@ -26,6 +27,7 @@ devDependencies:
   '@knosys/sdk': 0.0.3
   '@ntks/toolbox': 0.0.6
   hexo-theme-lime: 0.0.0-alpha.3_iv77owkr7ogln4onnbubjc7r6u
+  js-yaml: 4.1.0
   ksio: 0.0.3
 
 packages:
@@ -1403,7 +1405,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: false
 
   /jsbn/0.1.1:
     resolution: {integrity: sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg==}
