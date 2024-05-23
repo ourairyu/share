@@ -1,8 +1,8 @@
 const { resolve: resolvePath } = require('path');
 const { existsSync } = require('fs');
 
-const { resolveRootPath, readData, saveData, scanAndSortByAsc } = require('../../helper');
-const { createNotesGenerator } = require('./notes');
+const { resolveRootPath, scanAndSortByAsc, ensureDirExists, getLocalDataRoot, getLocalDocRoot } = require('../helper');
+const { createWeeklyGenerator, createNoteGenerator } = require('../generator');
 
 let sourceRootPath;
 
@@ -14,11 +14,14 @@ module.exports = {
       return;
     }
 
+    [getLocalDataRoot(), getLocalDocRoot()].forEach(distPath => ensureDirExists(distPath, true));
+
     sourceRootPath = resolvePath(srcPath, 'data');
 
     const sharedRootPath = resolvePath(srcPath, 'shared');
     const generators = {
-      notes: createNotesGenerator(sourceRootPath, sharedRootPath),
+      weeklies: createWeeklyGenerator(sourceRootPath, sharedRootPath),
+      notes: createNoteGenerator(sourceRootPath, sharedRootPath),
     };
 
     scanAndSortByAsc(sharedRootPath).forEach(collection => generators[collection] && generators[collection]());

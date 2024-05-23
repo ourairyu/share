@@ -19,7 +19,7 @@ function getLocalDataRoot() {
   return `${getSiteRoot()}/source/_data/knosys`;
 }
 
-function getLocalImageRoot() {
+function getLocalDocRoot() {
   return `${getSiteRoot()}/source/knosys`;
 }
 
@@ -32,6 +32,6 @@ function copySitePkgInfo(site) {
 module.exports = {
   ...ksUtils,
   resolveSiteSrcDir, resolveSiteSrcPath,
-  getSiteRoot, getLocalDataRoot, getLocalImageRoot,
+  getSiteRoot, getLocalDataRoot, getLocalDocRoot,
   copySitePkgInfo,
 };

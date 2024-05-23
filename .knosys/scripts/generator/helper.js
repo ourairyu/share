@@ -1,12 +1,68 @@
 const { existsSync } = require('fs');
+
 const { noop } = require('@ntks/toolbox');
+const { dump } = require('js-yaml');
 
 const {
   rm, cp,
-  getImageFileNames, readDirDeeply, ensureDirExists, ensureFileExists, readData, saveData, getLocalImageRoot,
-} = require('../../helper');
+  getImageFileNames, readDirDeeply,
+  ensureDirExists, ensureFileExists,
+  readData, saveData,
+  getLocalDocRoot,
+} = require('../helper');
 
 const METADATA_IMAGE_KEYS = ['banner', 'avatar', 'thumbnail', 'cover', 'logo'];
+
+function getItemSourceDir(sourceRootPath, metadata) {
+  return `${sourceRootPath}/${metadata.source}`;
+}
+
+function cacheClassifyItems(cache, slug, { date, categories, tags }) {
+  [
+    { items: categories || [], cacheKey: 'categorized' },
+    { items: tags || [], cacheKey: 'tagged' },
+  ].forEach(({ items, cacheKey }) => {
+    items.forEach(item => {
+      if (!cache[cacheKey][item]) {
+        cache[cacheKey][item] = [];
+      }
+
+      cache[cacheKey][item].push({ id: slug, date });
+    });
+  });
+}
+
+function getCollectionRoot(collectionName) {
+  return `${getLocalDocRoot()}/${collectionName}`;
+}
+
+function createBeforeReadHook(collectionName) {
+  const collectionRoot = getCollectionRoot(collectionName);
+
+  return cache => {
+    cache.categorized = {};
+    cache.tagged = {};
+
+    ensureDirExists(collectionRoot);
+    rm(`${collectionRoot}/*/*`);
+  };
+}
+
+function generateMarkdown(collectionName, id, item, _, cache) {
+  if (!item) {
+    return;
+  }
+
+  const itemDirPath = `${getCollectionRoot(collectionName)}/${id}`;
+  const data = Object.keys(item)
+    .filter(key => ['title', 'date', 'tags', 'categories'].includes(key) && item[key])
+    .reduce((acc, key) => ({ ...acc, [key]: item[key] }), {});
+
+  data.permalink = `/${collectionName}/${id}/`;
+
+  ensureDirExists(itemDirPath);
+  saveData(`${itemDirPath}/index.md`, `---\n${dump(data)}---\n\n${cache.noteContent}\n`);
+}
 
 function readMetadata(dirPath, raw) {
   let filePath = `${dirPath}/basic.yml`;
@@ -114,7 +170,7 @@ function createGenerator(collectionName, dataSourceRoot, localDataDir, localImag
 
     const dataSourceDir = typeof dataSourceRoot === 'function' ? dataSourceRoot() : `${dataSourceRoot}/${collectionName}`;
     const localDataFile = `${typeof localDataDir === 'function' ? localDataDir() : localDataDir}/${collectionName}.${fileExt}`;
-    const imagePathPrefix = localImageDir.replace(`${getLocalImageRoot()}/`, '');
+    const imagePathPrefix = localImageDir.replace(`${getLocalDocRoot()}/`, '');
 
     ensureFileExists(localDataFile, true);
 
@@ -193,19 +249,4 @@ function createGenerator(collectionName, dataSourceRoot, localDataDir, localImag
   }
 }
 
-function cacheClassifyItems(cache, slug, { date, categories, tags }) {
-  [
-    { items: categories || [], cacheKey: 'categorized' },
-    { items: tags || [], cacheKey: 'tagged' },
-  ].forEach(({ items, cacheKey }) => {
-    items.forEach(item => {
-      if (!cache[cacheKey][item]) {
-        cache[cacheKey][item] = [];
-      }
-
-      cache[cacheKey][item].push({ id: slug, date });
-    });
-  });
-}
-
-module.exports = { createGenerator, cacheClassifyItems };
+module.exports = { getItemSourceDir, cacheClassifyItems, getLocalDocRoot, createBeforeReadHook, generateMarkdown, createGenerator };
