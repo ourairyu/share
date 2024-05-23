@@ -1,0 +1,14 @@
+{
+  "command": "./.knosys/scripts/command",
+  "site": {
+    "default": {
+      "alias": "ourairyu-share",
+      "cname": "s.ourai.ws",
+      "generator": "hexo",
+      "git": {
+        "url": "https://github.com/ourairyu/share.git",
+        "branch": "gh-pages"
+      }
+    }
+  }
+}
