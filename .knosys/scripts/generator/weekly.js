@@ -14,7 +14,7 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
 
   note.title = `周报 ${args[0]}W${args[1]}${note.title ? '：' + note.title : ''}`;
 
-  cache.noteContent = note.content;
+  cache.content = note.content;
 
   cacheClassifyItems(cache, id, note);
 

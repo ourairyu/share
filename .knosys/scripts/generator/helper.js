@@ -61,7 +61,7 @@ function generateMarkdown(collectionName, id, item, _, cache) {
   data.permalink = `/${collectionName}/${id}/`;
 
   ensureDirExists(itemDirPath);
-  saveData(`${itemDirPath}/index.md`, `---\n${dump(data)}---\n\n${cache.noteContent}\n`);
+  saveData(`${itemDirPath}/index.md`, `---\n${dump(data)}---\n\n${cache.content}\n`);
 }
 
 function readMetadata(dirPath, raw) {

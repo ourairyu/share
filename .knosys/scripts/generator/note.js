@@ -16,7 +16,7 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
     note.sharedAt = sharedMetadata.date;
   }
 
-  cache.noteContent = note.content;
+  cache.content = note.content;
 
   cacheClassifyItems(cache, id, note);
 
