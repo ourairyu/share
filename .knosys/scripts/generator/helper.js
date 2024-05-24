@@ -8,7 +8,7 @@ const {
   getImageFileNames, readDirDeeply,
   ensureDirExists, ensureFileExists,
   readData, saveData,
-  getLocalDocRoot,
+  getLocalDataRoot, getLocalDocRoot,
 } = require('../helper');
 
 const METADATA_IMAGE_KEYS = ['banner', 'avatar', 'thumbnail', 'cover', 'logo'];
@@ -142,7 +142,7 @@ function getAndCopyItemImages(sourceDir, distDir) {
   return imageData;
 }
 
-function createGenerator(collectionName, dataSourceRoot, localDataDir, localImageRoot, opts) {
+function createGeneratorLegacy(collectionName, dataSourceRoot, localDataDir, localImageRoot, opts) {
   let localImageDir;
   let resolvedOptions;
 
@@ -249,4 +249,15 @@ function createGenerator(collectionName, dataSourceRoot, localDataDir, localImag
   }
 }
 
-module.exports = { getItemSourceDir, cacheClassifyItems, getCollectionRoot, createBeforeReadHook, generateMarkdown, createGenerator };
+function createGenerator(sourceRootPath, sharedRootPath, collectionName, opts) {
+  return createGeneratorLegacy(collectionName, sharedRootPath, getLocalDataRoot, getLocalDocRoot, {
+    paramPath: 'id',
+    metadataRequired: false,
+    getItemImageSourceDir: getItemSourceDir.bind(null, sourceRootPath),
+    beforeRead: createBeforeReadHook(collectionName),
+    readEach: generateMarkdown.bind(null, collectionName),
+    ...opts,
+  });
+}
+
+module.exports = { getItemSourceDir, cacheClassifyItems, getCollectionRoot, createGenerator };

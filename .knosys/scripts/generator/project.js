@@ -1,5 +1,5 @@
-const { sortByDate, readData, readMetadata, readReadMe, getLocalDataRoot, getLocalDocRoot } = require('../helper');
-const { getItemSourceDir, createBeforeReadHook, generateMarkdown, createGenerator } = require('./helper');
+const { sortByDate, readData, readMetadata, readReadMe } = require('../helper');
+const { getItemSourceDir, createGenerator } = require('./helper');
 
 const collectionName = 'projects';
 
@@ -27,13 +27,8 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
 }
 
 module.exports = {
-  createProjectGenerator: (sourceRootPath, sharedRootPath) => createGenerator(collectionName, sharedRootPath, getLocalDataRoot, getLocalDocRoot, {
-    paramPath: 'id',
-    metadataRequired: false,
-    getItemImageSourceDir: getItemSourceDir.bind(null, sourceRootPath),
+  createProjectGenerator: (sourceRootPath, sharedRootPath) => createGenerator(sourceRootPath, sharedRootPath, collectionName, {
     transformItem: resolveItemData.bind(null, sourceRootPath),
     transformData: items => ({ items, sequence: sortByDate(Object.keys(items).map(key => items[key])).map(({ id }) => id) }),
-    beforeRead: createBeforeReadHook(collectionName),
-    readEach: generateMarkdown.bind(null, collectionName),
   }),
 };

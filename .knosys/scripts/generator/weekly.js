@@ -1,5 +1,5 @@
-const { sortByDate, readMetadata, readReadMe, getLocalDataRoot, getLocalDocRoot } = require('../helper');
-const { getItemSourceDir, cacheClassifyItems, createBeforeReadHook, generateMarkdown, createGenerator } = require('./helper');
+const { sortByDate, readMetadata, readReadMe } = require('../helper');
+const { getItemSourceDir, cacheClassifyItems, createGenerator } = require('./helper');
 
 const collectionName = 'weeklies';
 
@@ -22,10 +22,7 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
 }
 
 module.exports = {
-  createWeeklyGenerator: (sourceRootPath, sharedRootPath) => createGenerator(collectionName, sharedRootPath, getLocalDataRoot, getLocalDocRoot, {
-    paramPath: 'id',
-    metadataRequired: false,
-    getItemImageSourceDir: getItemSourceDir.bind(null, sourceRootPath),
+  createWeeklyGenerator: (sourceRootPath, sharedRootPath) => createGenerator(sourceRootPath, sharedRootPath, collectionName, {
     transformItem: resolveItemData.bind(null, sourceRootPath),
     transformData: items => {
       const sequence = sortByDate(Object.keys(items).map(key => items[key])).map(({ id }) => id);
@@ -43,7 +40,5 @@ module.exports = {
 
       return { items, sequence, yearly: Object.keys(yearly).sort().map(year => ({ year, ids: yearly[year] })) };
     },
-    beforeRead: createBeforeReadHook(collectionName),
-    readEach: generateMarkdown.bind(null, collectionName),
   }),
 };

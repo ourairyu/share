@@ -3,8 +3,8 @@ const { resolve: resolvePath } = require('path');
 const { dump } = require('js-yaml');
 const { pick } = require('@ntks/toolbox');
 
-const { sortByDate, ensureDirExists, readData, saveData, readMetadata, getLocalDataRoot, getLocalDocRoot } = require('../helper');
-const { getItemSourceDir, getCollectionRoot, createBeforeReadHook, createGenerator } = require('./helper');
+const { sortByDate, ensureDirExists, readData, saveData, readMetadata } = require('../helper');
+const { getItemSourceDir, getCollectionRoot, createGenerator } = require('./helper');
 
 const collectionName = 'repos';
 
@@ -93,13 +93,9 @@ function generateMarkdown(id, item) {
 }
 
 module.exports = {
-  createRepoGenerator: (sourceRootPath, sharedRootPath) => createGenerator(collectionName, sharedRootPath, getLocalDataRoot, getLocalDocRoot, {
-    paramPath: 'id',
-    metadataRequired: false,
-    getItemImageSourceDir: getItemSourceDir.bind(null, sourceRootPath),
+  createRepoGenerator: (sourceRootPath, sharedRootPath) => createGenerator(sourceRootPath, sharedRootPath, collectionName, {
     transformItem: resolveItemData.bind(null, sourceRootPath),
     transformData: items => ({ items, sequence: sortByDate(Object.keys(items).map(key => items[key])).map(({ id }) => id) }),
-    beforeRead: createBeforeReadHook(collectionName),
     readEach: generateMarkdown,
   }),
 };
