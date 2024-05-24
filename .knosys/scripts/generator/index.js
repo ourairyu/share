@@ -3,4 +3,5 @@ module.exports = {
   ...require('./weekly'),
   ...require('./note'),
   ...require('./project'),
+  ...require('./repo'),
 };

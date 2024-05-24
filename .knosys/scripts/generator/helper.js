@@ -249,4 +249,4 @@ function createGenerator(collectionName, dataSourceRoot, localDataDir, localImag
   }
 }
 
-module.exports = { getItemSourceDir, cacheClassifyItems, getLocalDocRoot, createBeforeReadHook, generateMarkdown, createGenerator };
+module.exports = { getItemSourceDir, cacheClassifyItems, getCollectionRoot, createBeforeReadHook, generateMarkdown, createGenerator };
