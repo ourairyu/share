@@ -15,7 +15,7 @@ module.exports = {
         const cnameDomain = getConfig(`site.${site}.cname`);
 
         copySitePkgInfo(site);
-        generateHexoSite(resolveSiteSrcDir(site), distPath);
+        generateHexoSite(resolvePath(resolveRootPath(), resolveSiteSrcDir(site)), distPath);
 
         if (cnameDomain) {
           execSync(`echo ${cnameDomain} > CNAME`, { stdio: 'inherit', cwd: distPath });
