@@ -1,0 +1,5 @@
+@function fa-font-path($path) {
+  @return "../fonts/ksio/polyfills/#{$path}";
+}
+
+$fa-sass-asset-helper: true;
