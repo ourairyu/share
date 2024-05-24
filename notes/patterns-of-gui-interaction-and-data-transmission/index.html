@@ -1,4 +1,242 @@
-<!DOCTYPE html> <html lang="zh-CN" dir="ltr"> <head> <meta charset="UTF-8"> <!-- SEO --> <title>界面交互与数据传输模式</title> <meta property="og:title" content="界面交互与数据传输模式"> <meta name="description" content="总结一些界面交互及其相应的数据传输设计模式。"> <meta property="og:description" content="总结一些界面交互及其相应的数据传输设计模式。"> <link rel="canonical" href="https://s.ourai.ws/notes/patterns-of-gui-interaction-and-data-transmission/"> <meta property="og:url" content="https://s.ourai.ws/notes/patterns-of-gui-interaction-and-data-transmission/"> <meta property="og:site_name" content="欧雷共享的内容"> <script type="application/ld+json"> { "@context" : "http://schema.org", "@type" : "WebSite", "name" : "欧雷共享的内容", "url" : "https://s.ourai.ws" } </script> <meta property="og:type" content="article"> <meta property="article:published_time" content="2021-12-15T20:51:17+08:00"> <link rel="next" href="https://s.ourai.ws/notes/things-about-ant-design/" title="剖析 Ant Design"> <link rel="prev" href="https://s.ourai.ws/notes/change-buttons-bahavior-globally/" title="如何改变所有按钮的点击行为？"> <script type="application/ld+json"> { "@context": "http://schema.org", "@type": "NewsArticle", "headline": "界面交互与数据传输模式", "image": null, "datePublished": "2021-12-15T20:51:17+08:00", "description": "总结一些界面交互及其相应的数据传输设计模式。" } </script> <link rel="author" href="https://s.ourai.ws"> <!-- 页面渲染兼容性 --> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="renderer" content="webkit"> <meta name="viewport" content="width=device-width,initial-scale=1.0"> <meta name="theme-color" content="#0871ab"> <link rel="icon" href="/assets/favicon-3e749ca030e3b71eb2662d947c789061d2da9e0f4ee5f3360cfa9ccbe053c8ba.ico"> <!-- 静态资源 --> <link type="text/css" rel="stylesheet" href="/assets/disqusjs.min-b077139304675330d06888b873bd88158951637593a3c17c4674bc855caf71af.css"> <link type="text/css" rel="stylesheet" href="/assets/global-b623500154e70cdef18bd463a0ef409c46da6d1ad99756cf169ddb354874bcbc.css"> <link type="text/css" rel="stylesheet" href="/assets/share-2811f36e337fef8021089414f657904b7e88db17d8ecade0688c8c3f5e632a5c.css"> <link type="text/css" rel="stylesheet" href="/assets/pages/post-d5f1244d69bfc31e3c7b73b16140ed8a09f0b5af40515abeae522bee80e92ec9.css"> <script type="text/javascript" src="/assets/statistic-52fc2b63e026fefad6d243ba0e5c7eb4179734e8d7b817d5ba5659c023f0f71f.js"></script> <script type="text/javascript" src="/assets/global-b3a80dd53acf48ad7228d6fd741dba15d3845cbc3783bdbbf7244151a45628aa.js"></script> <!--[if lt IE 9]> <script type="text/javascript" src="/assets/support_ie8-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js"></script> <![endif]--> </head> <body class="Page" itemscope itemtype="http://schema.org/WebPage"> <header class="Page-header"> <div class="navbar navbar-static-top"> <div class="container"> <div class="navbar-header"> <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <div class="navbar-brand"><a href="https://ourai.ws/?utm_source=s.ourai.ws&utm_medium=common-header" title="访问「欧雷流」" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/" title="回到首页">共享</a></div> </div> <nav class="Page-navs navbar-collapse collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="https://ourai.ws/?utm_source=s.ourai.ws&utm_medium=common-header" target="_blank" rel="external nofollow">主站</a></li> <li class="dropdown"> <a class="dropdown-toggle" href="/about/" data-toggle="dropdown">关于 <span class="caret"></span></a> <ul class="dropdown-menu"> <li><a href="https://linxoid.com/ourai/?utm_source=s.ourai.ws&utm_medium=common-header" target="_blank" rel="external nofollow">站长</a></li> <li class="divider"></li> <li><a href="https://ourai.ws/sponsor/?utm_source=s.ourai.ws&utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a></li> <li><a href="https://yaol.in/cooperation/?utm_source=s.ourai.ws&utm_medium=common-header" target="_blank" rel="external nofollow">合作</a></li> </ul> </li> </ul> </nav> </div> </div> </header> <main class="Page-content"> <!-- 内容主体 --> <div class="container"> <article class="Page-main Article"> <header class="Article-header"> <h1 class="Article-title">界面交互与数据传输模式</h1> <p><a href="https://linxoid.com/ourai/" target="_blank" rel="external nofollow">欧雷</a> 发表于 <time datetime="2021-12-15T20:51:17+08:00">2021-12-15 20:51:17</time></p> </header> <div class="Article-content col-md-9"><p>总结一些界面交互及其相应的数据传输设计模式。</p> <h2 id="section">动态列表</h2> <p>「动态列表」就是可以直接进行数据填写，可以删除条目，并且将填写好的数据一起保存的列表：</p> <figure> <img src="/assets/notes/patterns-of-gui-interaction-and-data-transmission/dynamic-list-f39ff34752e9dca552577f93e64c377a919adfd7fd0be7ed83a1c73d2398d026.jpg" alt="动态列表" /> <figcaption>动态列表</figcaption> </figure> <h3 id="section-1">适用场景</h3> <p>这种交互常用于配置类的场景，如：下拉列表的选项设置。</p> <h3 id="section-2">数据传输</h3> <p>在 HTTP 接口设计上，除了获取已保存数据的列表接口外，与添加、修改及删除相关的接口设计大致有三种方案——</p> <p>第一种是将保存与删除操作的接口分开，添加与修改的数据一同保存，但在删除时每操作一次请求一遍接口。这种方案虽然让后端能够明确知道哪些数据是被删除了，但每次删除操作都要在前端显示忙碌状态，以避免出现数据不一致的情况。这样一来用户操作就不连贯了，用户体验变差。</p> <p>第二种是去掉删除接口，即在进行删除操作时不与后端通信。与第一种方案相比，虽然用户操作连贯了，用户体验得到了保证，但后端需要从数据库中捞取一定范围的数据，与前端保存提交的数据进行对比计算出被删除的数据，损失了一些性能，令请求响应变慢。从最终结果来看，还是影响用户体验，虽然小了些。</p> <p>最后一种方案是前两种方案的折衷——仍然是只有一个保存接口，但在传输数据时将被删除的数据明确告诉后端，这样就避免后端去捞数据再计算被删除的数据。传输的数据格式可以是这样的：</p> <figure class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">[],</span> <span class="c1">// 界面交互所产生的最终的添加与修改的数据</span>
-  <span class="nx">deletedIds</span><span class="o">:</span> <span class="p">[],</span> <span class="c1">// 被删除的已保存在后端的数据的 ID</span>
-<span class="p">}</span></code></pre></figure> <div class="Article-donation"> <div class="Article-donationDetail"> <p>创作不易，若给你提供了价值，还请不吝<span class="Article-donationCharge">为<a href="https://linxoid.com/ourai/" target="_blank" rel="external nofollow">欧雷</a>充电</span></p> <p><img src="/assets/qrcodes/pay/wechat/donation-e2e3575287a218b650a69211a6d5e9220f9ad0314b2e946edcdc62cffcefcbd9.jpg" width="120"><img src="/assets/qrcodes/pay/alipay/ourai-2492dcf9d66d7a690e0576aa38945ad96e656b370d176c0b087638e83105844d.jpg" width="120"></p> <p>左为<span style="color: #38a138">微信</span>，右为<span style="color: #4b5dfa">支付宝</span>；充电累计 <strong>¥88</strong> 以上可在付款时备注或<a href="mailto:ourairyu+donate@gmail.com" target="_blank" rel="external nofollow">邮件</a>告知昵称和需要被链接的网址，会列在「<a href="https://ourai.ws/sponsor/#current" target="_blank" rel="external nofollow">赞助</a>」页。其他方式与具体规则请见「<a href="https://ourai.ws/sponsor/#donation" target="_blank" rel="external nofollow">资助</a>」。</p> </div> </div></div> <footer class="Article-footer col-md-3"> <div class="Widget Article-license"> <div class="Widget-body"> <p>本文采用知识共享<i class="fa fa-creative-commons"></i><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="external nofollow">署名-非商业性使用 4.0 国际</a>许可协议，可自由转载、引用，但需署名作者并注明文章出处且不能用于商业用途。</p> </div> </div> <div class="Widget Widget--share"> <div class="Widget-body"> <p>分享到<i class="fa fa-share-alt"></i></p> <div class="social-share" data-sites="wechat,weibo,twitter"></div> </div> </div> <section class="Widget Widget--toc"> <div class="Widget-header"> <h2 class="Widget-title">目录</h2> </div> <div class="Widget-body"></div> </section> </footer> <!-- 评论区 --> <div class="Article-comments col-md-9"> <div id="disqus_thread"></div> <script> var disqus_config = function () { this.page.url = "http://" + location.host + "/notes/patterns-of-gui-interaction-and-data-transmission/"; this.page.identifier = "/notes/patterns-of-gui-interaction-and-data-transmission/"; this.page.title = "界面交互与数据传输模式"; }; (function() { var d = document, s = d.createElement('script'); s.src = '//ourai-share.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="external nofollow">comments powered by Disqus.</a></noscript> <script id="dsq-count-scr" src="//ourai-share.disqus.com/count.js" async></script> </div> </article> </div> </main> <footer class="Page-footer Footer"> <div class="container"> <div class="Footer-description"> <!-- 重要链接 --> <nav class="Footer-navs"> <ul> <li><a href="https://meta.ourai.ws/?utm_source=s.ourai.ws&utm_medium=common-footer" title="访问「欧雷宇宙」" target="_blank" rel="external nofollow"><span>@</span></a></li> <li><a href="https://ourai.ws/sponsor/?utm_source=s.ourai.ws&utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a></li> <li><a href="https://yaol.in/cooperation/?utm_source=s.ourai.ws&utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a></li> </ul> </nav> <!-- 网站版权 --> <div class="Footer-copyright"> <p>&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=s.ourai.ws&utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有</p> <p>采用 <a href="http://jekyllrb.com" target="_blank" rel="external nofollow">Jekyll</a> 生成</p> </div> </div> </div> </footer> <script type="text/javascript" src="/assets/share.min-3155ee636b84a04d036e0f1ba833227d3fd03a4c58a6f2e21c9ceb1c5d0198c7.js"></script><script type="text/javascript" src="/assets/components-a266f21fe1dfd61bebf40e74872cbf901eb3e201f7d33e9e5d5af9a55f4b24ea.js"></script> <script type="text/javascript" src="/assets/initializers/time-8d7a529a66ae6cb53c2283d21fd6a12c538b8473dd5bd76458366d09adce7bf6.js"></script><script type="text/javascript" src="/assets/initializers/lazyload-44b7df8a9282d598284d522e64d6be9ac88d466f3c4a734a514303e99347b2c9.js"></script><script type="text/javascript" src="/assets/pages/note-9ab3eb6df1d3fddf84b58d43559834cd8185c6e5e020afa35bb2c51247538efa.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>界面交互与数据传输模式 - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="界面交互与数据传输模式">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">界面交互与数据传输模式</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>总结一些界面交互及其相应的数据传输设计模式。</p>
+<h2 id="动态列表"><a href="#动态列表" class="headerlink" title="动态列表"></a>动态列表</h2><p>「动态列表」就是可以直接进行数据填写，可以删除条目，并且将填写好的数据一起保存的列表：</p>
+<figure>
+  <img src="/knosys/notes/patterns-of-gui-interaction-and-data-transmission/dynamic-list.jpeg" alt="动态列表">
+  <figcaption>动态列表</figcaption>
+</figure>
+
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>这种交互常用于配置类的场景，如：下拉列表的选项设置。</p>
+<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p>在 HTTP 接口设计上，除了获取已保存数据的列表接口外，与添加、修改及删除相关的接口设计大致有三种方案——</p>
+<p>第一种是将保存与删除操作的接口分开，添加与修改的数据一同保存，但在删除时每操作一次请求一遍接口。这种方案虽然让后端能够明确知道哪些数据是被删除了，但每次删除操作都要在前端显示忙碌状态，以避免出现数据不一致的情况。这样一来用户操作就不连贯了，用户体验变差。</p>
+<p>第二种是去掉删除接口，即在进行删除操作时不与后端通信。与第一种方案相比，虽然用户操作连贯了，用户体验得到了保证，但后端需要从数据库中捞取一定范围的数据，与前端保存提交的数据进行对比计算出被删除的数据，损失了一些性能，令请求响应变慢。从最终结果来看，还是影响用户体验，虽然小了些。</p>
+<p>最后一种方案是前两种方案的折衷——仍然是只有一个保存接口，但在传输数据时将被删除的数据明确告诉后端，这样就避免后端去捞数据再计算被删除的数据。传输的数据格式可以是这样的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-attr">data</span>: [], <span class="hljs-comment">// 界面交互所产生的最终的添加与修改的数据</span><br>  <span class="hljs-attr">deletedIds</span>: [], <span class="hljs-comment">// 被删除的已保存在后端的数据的 ID</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+

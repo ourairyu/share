@@ -1,1 +1,0 @@
-(function(){$(".Article-content table").addClass("table table-bordered")}).call(this);
