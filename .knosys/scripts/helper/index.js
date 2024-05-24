@@ -32,6 +32,6 @@ function copySitePkgInfo(site) {
 module.exports = {
   ...ksUtils,
   resolveSiteSrcDir, resolveSiteSrcPath,
-  getSiteRoot, getLocalDataRoot, getLocalDocRoot,
+  getLocalDataRoot, getLocalDocRoot,
   copySitePkgInfo,
 };
