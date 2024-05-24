@@ -4,4 +4,5 @@ module.exports = {
   ...require('./note'),
   ...require('./project'),
   ...require('./repo'),
+  ...require('./bookmark'),
 };

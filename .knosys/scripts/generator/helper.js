@@ -206,7 +206,7 @@ function createGenerator(collectionName, dataSourceRoot, localDataDir, localImag
             const imageFileName = imageData[k];
 
             if (imageFileName) {
-              const imagePath = getImagePath ? getImagePath(slug, imageFileName) : `${imagePathPrefix}/${slug}/${imageFileName.split('.').slice(0, -1).join('.')}`;
+              const imagePath = getImagePath ? getImagePath(slug, imageFileName) : `/knosys/${imagePathPrefix}/${slug}/${imageFileName}`;
 
               if (k === 'banner') {
                 const itemBanner = item.banner;
