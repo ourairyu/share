@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>智能合约纯小白是如何完成自己的第一个 dApp——NFT market？ - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="智能合约纯小白是如何完成自己的第一个 dApp——NFT market？">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">智能合约纯小白是如何完成自己的第一个 dApp——NFT market？</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>作为一个持续看衰传统互联网行业 Web 前端开发的大龄前端工程师，我一直在寻找一个能最大化利用自己已有知识与技能的出路——选择了向 Web3 领域的全栈开发转型。</p>
+<p>在做出此决定之时，我对 Web3 还不甚了解，无论是站在从业者或是普通用户的立场，我急需一个能够让我快速入门的途径！</p>
+<p>机缘巧合之下，我知道了 <a target="_blank" rel="noopener" href="https://openbuild.xyz/">OpenBuild</a> 的《<a target="_blank" rel="noopener" href="https://openbuild.xyz/learn/challenges/2036589711">Web3 前端训练营</a>》，从内容介绍来看应该能满足我的需求，就毫不犹豫地报名了——都免费的了，还有「玛尼」赚，犹豫个鬼啊！</p>
+<p>本文内容是训练营课程的实战笔记，围绕着「有前端开发基础的智能合约纯小白如何开发出自己的第一个 NFT market dApp」去写，也就是说，会涵盖 <a target="_blank" rel="noopener" href="https://github.com/openbuildxyz/Web3-Frontend-Bootcamp/blob/main/task/03_NFTMarket_Contract.md">task 3</a>、<a target="_blank" rel="noopener" href="https://github.com/openbuildxyz/Web3-Frontend-Bootcamp/blob/main/task/04_NFTMarket_Component.md">task 4</a> 和 <a target="_blank" rel="noopener" href="https://github.com/openbuildxyz/Web3-Frontend-Bootcamp/blob/main/task/05_NFTMarket_Dapp.md">task 5</a>。</p>
+<p>由于我是刚向 Web3 转型的初学者，很多东西不太懂，以下内容仅代表个人理解，有错漏谬误欢迎指出。</p>
+<p>我认为「智能合约」这个名字源于它所起到的业务作用，而对于开发者来说，它仅仅是软件程序而已，需要用某种编程语言去写代码。</p>
+<p>所以，要想编写以太坊的智能合约，就得学习并了解 Solidity 语法、ERC 及链上交互流程，这几个理解了代码就能写对了，剩下的是部署。</p>
+<h2 id="学习-Solidity"><a href="#学习-Solidity" class="headerlink" title="学习 Solidity"></a>学习 Solidity</h2><p>编程经验丰富的人只要搂一眼就知道 Solidity 是面向对象的静态类型语言，虽说有一些陌生的关键字，但不妨碍我把它整体看作是<strong>披着「合约」外衣的「类」</strong>。</p>
+<p>因而，对 TS、Java 等有类型的基于类的编程语言熟悉的话，能够通过建立映射关系很快地初步了解 Solidity。</p>
+<p><code>contract</code> 关键字可认为是 <code>class</code> 关键字的领域特定变形，更加语义化地表达「合约」这个概念，因而写一个合约相当于写类。</p>
+<p>状态变量用于存储合约内的数据，相当于类的成员变量，即类属性。</p>
+<p>函数既可定义在合约内部，也可在外部——前者相当于类的成员函数，即类方法；后者则是普通函数，通常是一些工具函数。</p>
+<p>不像 TS 和 Java，在 Solidity 中访问可见性标识不是在最前面，而且对变量与函数来说位置是不一致的，这有点反直觉。</p>
+<p><code>private</code> 与 <code>public</code> 的语义跟其他语言是一样的，但没有 <code>protected</code>，取而代之的是 <code>internal</code>，另外还多了一个表示仅供外部调用的 <code>external</code>。</p>
+<p>函数修饰符相当于 TS 装饰器或 Java 注解，可以进行面向切面编程，即 AOP；函数与函数修饰符都可被衍生的合约覆盖。</p>
+<p>以下几种类型都可看作是 ES 中的对象，但使用场景有所不同：</p>
+<ul>
+<li>结构体（<code>struct</code>）用于定义实体；</li>
+<li>枚举（<code>enum</code>）是有限选项的集合；</li>
+<li>映射（<code>mapping</code>）则是无限的选项。</li>
+</ul>
+<p>Solidity 支持多重继承与函数多态性，能够更好地组合复用；由于合约的开发有 ERC 驱动的倾向，多重继承的副作用应该不会像在其他语言中那么严重。</p>
+<p>鉴于 Solidity 是为区块链而生，以及区块链本身及应用场景的特性，通过事件与外部通信和遇到错误时回滚之前的操作可以说是「刚需」，所以在语法层面支持事件与错误相关处理。</p>
+<p><code>require()</code> 这个函数的用法对我来说也是有点特别的，<code>require(initialValue &gt; 999, &quot;Initial supply must be greater than 999.&quot;);</code> 就相当于以下 ES 代码的简明语义化版：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">if</span> (initialValue &lt;= <span class="hljs-number">999</span>) &#123;<br>  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Initial supply must be greater than 999.&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="了解-ERC"><a href="#了解-ERC" class="headerlink" title="了解 ERC"></a>了解 ERC</h2><p>在以太坊中，「ERC」的全称为「Ethereum Request for Comments」，是 EIP（Ethereum Improvement Proposal）的一个类型，定义了智能合约应用程序相关标准和约定。</p>
+<p>由于 Web3 所推崇的是去中心化与开放性，保障智能合约应用程序的互操作性就成了基本要求，因此作为这方面标准的 ERC 就显得十分重要。</p>
+<p>以太坊智能合约应用程序开发中最基本的 ERC 有以下两个：</p>
+<ul>
+<li>ERC-20——同质化代币，作为类金融系统的基础设施，如虚拟货币、贡献积分；</li>
+<li>ERC-721——非同质化代币（NFT），作为身份系统的基础设施，如勋章、证书、门票。</li>
+</ul>
+<p>实际上，可把 ERC 看作是权威的 API 文档。</p>
+<h2 id="编写智能合约"><a href="#编写智能合约" class="headerlink" title="编写智能合约"></a>编写智能合约</h2><p>开发智能合约应用程序时，需要选择一个框架来辅助，貌似用 Hardhat 和 Foundry 的比较多——我选用前者，因为它对 JS 技术栈友好，即对从前端开发转型的人友好。</p>
+<p>在 IDE 的选择上，很多人会去使用以太坊官方提供的 Remix，而我则继续使用 VS Code，主要是想在刚入门时尽量减少学习成本。</p>
+<p>对 Hardhat 不了解的话，可按照<a target="_blank" rel="noopener" href="https://hardhat.org/tutorial">官方教程</a>选择性地一步步搭建运行环境，所生成的目录结构中除了 <code>hardhat.config.ts</code> 这个配置文件外，基本只需关注 4 个文件夹及其文件：</p>
+<ul>
+<li><code>contracts</code>——智能合约源码；</li>
+<li><code>artifacts</code>——通过 <code>hardhat compile</code> 生成的编译后文件；</li>
+<li><code>ignition</code>——基于 Hardhat Ignition 部署智能合约用的；</li>
+<li><code>test</code>——智能合约功能测试代码。</li>
+</ul>
+<p>在 <code>ignition</code> 中也会生成编译后的文件，但与 <code>artifacts</code> 不同，是跟被部署的目标链绑定的，也就是生成到要部署的链 ID 的文件夹下。</p>
+<p>作为训练营作业的那 3 个 task，都涉及到 ERC-20 代币、ERC-721 代币和 NFT 市场这 3 个合约，其中前两个代币合约可借助经过验证的 <a target="_blank" rel="noopener" href="https://www.openzeppelin.com/contracts">OpenZeppelin Contracts</a>，以其为基础进行扩展。</p>
+<p>我的 ERC-20 代币 RaiCoin 的实现代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.24;<br><br>import &#123; ERC20 &#125; from &quot;@openzeppelin/contracts/token/ERC20/ERC20.sol&quot;;<br><br>contract RaiCoin is ERC20(&quot;RaiCoin&quot;, &quot;RAIC&quot;) &#123;<br>  constructor(uint256 initialValue) &#123;<br>    require(initialValue &gt; 999, &quot;Initial supply must be greater than 999.&quot;);<br>    _mint(msg.sender, initialValue * 10 ** 2);<br>  &#125;<br><br>  function decimals() public view virtual override returns (uint8) &#123;<br>    return 2;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>最好是在初始化时就 mint 一定量的代币（通常数目很大），并把拥有者设为自己的账户地址，否则在过后进行交易时会提示没有余额，处理起来更麻烦。</strong></p>
+<p><strong>上面代码中的 <code>msg.sender</code> 在 <code>constructor()</code> 中时实际上是部署合约的账户地址，如果是用自己的账户地址部署，那初始代币就全进自己账户中了。</strong></p>
+<p>由于自己的 ERC-20 代币只是随便玩玩的性质，并不会增值，可以考虑覆盖 OpenZeppelin 中的 <code>decimals()</code> 而把数值设置小点。</p>
+<p>下面是 ERC-721 代币 RaiE 的实现代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.24;<br><br>import &#123; ERC721 &#125; from &quot;@openzeppelin/contracts/token/ERC721/ERC721.sol&quot;;<br><br>contract RaiE is ERC721 &#123;<br>  uint256 private _totalCount;<br><br>  constructor() ERC721(&quot;RaiE&quot;, &quot;RAIE&quot;) &#123;<br>    _totalCount++;<br>  &#125;<br><br>  function mint() external returns (uint256) &#123;<br>    uint256 tokenId = _totalCount;<br><br>    _safeMint(msg.sender, tokenId);<br><br>    _totalCount++;<br><br>    return tokenId;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我只额外实现了一个 <code>mint()</code>，且不带任何参数，只是单纯地发币，这是为什么呢？NFT 不是该有相应的图片吗？具体原因下文会说。</p>
+<p>这两个代币合约算是白给的，自己无需写多少代码，真正需要思考的地方主要集中在 NFT 市场合约当中，比如——</p>
+<p>市场中的 NFT 列表是否要分页？</p>
+<p>分页的话，每次翻页时的延迟会比较明显，前端的用户体验不好；但不分页的话，NFT 数量多时也会有这种问题。</p>
+<p>NFT 的图片 URL 该存哪里？是 NFT 合约还是市场合约中？</p>
+<p>理论上该存进 NFT 合约，但若如此，获取 NFT 列表时就会频繁通过外部调用的方式访问 NFT 合约，影响性能与用户体验。</p>
+<p>应该在 NFT 合约中维护一个「谁拥有哪些代币」的可被外部获取的列表吗？</p>
+<p>若要有，数据与市场合约中相比是冗余的，会显得 NFT 合约很是臃肿；若没有，就无法显性地知道都有哪些代币，分别属于谁。</p>
+<p>可以看出，<strong>仅依赖区块链相关技术去做一个产品级的应用，就目前而言是有很大局限性的，用户体验会很差！</strong></p>
+<p>也就是说，<strong>产品的性能和体验还是得靠以往的应用架构去支撑，区块链仅作为身份验证及部分数据的「备份」用。</strong></p>
+<p>因此，我暂时放弃了以做产品为导向的思维方式，不去纠结哪里是否合理之类的事情，转变为先满足作业要求为主——只要有相关功能就行。</p>
+<p>这样一来，决策就很容易做了——怎样能更快地完成作业就怎么来！于是，上面的 3 个疑惑很快就消除了：</p>
+<ul>
+<li>市场中的 NFT 列表不进行分页——只会有不几个 NFT；</li>
+<li>NFT 的图片 URL 存在市场合约中——NFT 合约只被自己的市场合约使用；</li>
+<li>NFT 合约中不维护代币归属的列表——临时操作时能记住是哪个账户 mint 了哪个代币。</li>
+</ul>
+<p>在实现 NFT 市场 RaiGallery 时我发现，只有数组是可被遍历的，<code>mapping</code> 不行，并且初始化时指定长度的数组不能用 <code>.push()</code> 添加元素，只能用索引：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs solidity">contract RaiGallery &#123;<br>  struct NftItem &#123; address seller; address nftContract; uint tokenId; string tokenUrl; uint256 price; uint256 listedAt; bool listing; &#125;<br><br>  struct NftIndex &#123; address nftContract; uint tokenId; &#125;<br><br>  NftIndex[] private _allNfts;<br><br>  function getAll() external view returns (NftItem[] memory) &#123;<br>    // 初始化时指定了数组长度<br>    NftItem[] memory allItem = new NftItem[](_allNfts.length);<br>    NftIndex memory nftIdx;<br><br>    for (uint256 i = 0; i &lt; _allNfts.length; i++) &#123;<br>      nftIdx = _allNfts[i];<br>      // 这里用 `allItem.push(_listedNfts[nftIdx.nftContract][nftIdx.tokenId])` 的话会报错<br>      allItem[i] = _listedNfts[nftIdx.nftContract][nftIdx.tokenId];<br>    &#125;<br><br>    return allItem;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="调试智能合约"><a href="#调试智能合约" class="headerlink" title="调试智能合约"></a>调试智能合约</h2><p>写完智能合约源码，就得先写测试代码过一遍，把一些基础的问题暴露出来并解决掉。</p>
+<p>如上文所述，在 Hardhat 项目中测试代码是放在 <code>test</code> 文件夹下的，基本是每个文件对应一个合约，当然也可将不同文件间的可复用逻辑提取出来放到额外的文件中，如 <code>helper.ts</code>。</p>
+<p>测试代码是基于 Mocha 和 Chai 的 API 去写，在真正开始测试合约功能之前，需要先部署合约到本地环境中，可以是内置的 <code>hardhat</code>，也可启动一个本地节点 <code>localhost</code>，我暂且选择前者。</p>
+<p>这时，部署的方式能够复用 Hardhat Ignition 模块，但我还没搞懂它是怎么用的，就采用更容易理解的 <code>loadFixture()</code>。</p>
+<p>搞测试还挺费劲的，感觉差不多一天的时间都耗进去了，但在这个过程中我对 ERC-20 代币、ERC-721 代币、NFT 市场及用户这四方之间该如何交互有了更深的了解，如：</p>
+<ul>
+<li>直接用合约实例去调方法的话，那调用者就是合约本身，得用 <code>合约实例.connect(某个账户)</code> 后再去调用才能模拟与用户间的操作；</li>
+<li>NFT 的拥有者得通过 <code>.setApprovalForAll(市场合约地址, true)</code> 把自己的全部 NFT 授权给 NFT 市场后才能在市场中上架出售。</li>
+</ul>
+<p>觉得智能合约的单方测试差不多了，就该部署到本地节点与前端进行联调了，这回要用到 Hardhat Ignition 模块了。</p>
+<p>在去看文档学习时，感觉有点晦涩难懂，看着看着就想睡觉的那种；但现在再回过头看，每个模块实际上就是在描述部署该模块对应的合约时该如何初始化。</p>
+<p>Hardhat Ignition 支持子模块，通过 <code>.useModule()</code> 使用，能够在编译并部署模块时把子模块一同处理了，也就是说——</p>
+<p>假设我有 <code>RaiCoin.ts</code>、 <code>RaiE.ts</code> 和 <code>RaiGallery.ts</code> 三个模块，其中 <code>RaiGallery.ts</code> 在部署时需要 <code>RaiCoin.ts</code> 部署后返回的地址，那就可将 <code>RaiCoin.ts</code> 作为 <code>RaiGallery.ts</code> 的子模块：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; buildModule &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nomicfoundation/hardhat-ignition/modules&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">RaiCoin</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./RaiCoin&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">buildModule</span>(<span class="hljs-string">&#x27;RaiGallery&#x27;</span>, <span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; coin &#125; = m.<span class="hljs-title function_">useModule</span>(<span class="hljs-title class_">RaiCoin</span>);<br>  <span class="hljs-keyword">const</span> gallery = m.<span class="hljs-title function_">contract</span>(<span class="hljs-string">&#x27;RaiGallery&#x27;</span>, [coin]);<br><br>  <span class="hljs-keyword">return</span> &#123; gallery &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>这样的话，<code>RaiE.ts</code> 是单独部署，而在部署 <code>RaiGallery.ts</code> 时会级联部署 <code>RaiCoin.ts</code>，所以只执行两次部署命令即可。</p>
+<p>接着，把 <code>hardhat.config.ts</code> 中的 <code>defaultNetwork</code> 配置项改为 <code>&#39;localhost&#39;</code>，在 Hardhat 项目根目录下执行 <code>npx hardhat node</code> 启动本地节点，再开启一个终端窗口部署智能合约：</p>
+<ul>
+<li>执行 <code>npx hardhat ignition deploy ./ignition/modules/RaiE.ts</code> 部署 ERC-721 代币合约；</li>
+<li>执行 <code>npx hardhat ignition deploy ./ignition/modules/RaiGallery.ts</code> 部署 ERC-20 代币合约和 NFT 市场合约。</li>
+</ul>
+<p>全部部署成功后，会在 <code>ignition/deployments/chain-31337</code> 文件夹（「31337」是本地节点的链 ID）中生成编译后的合约相关文件：</p>
+<ul>
+<li><code>deployed_addresses.json</code> 中罗列了合约地址；</li>
+<li><code>artifacts</code> 文件夹下的 JSON 文件中包含了合约的 ABI。</li>
+</ul>
+<p>上述两项关键信息需要复制粘贴到前端项目的全局共用变量中，以供联调时使用。</p>
+<p>在开始联调之前，需在 MetaMask 钱包中做两件事：</p>
+<ul>
+<li>将 Hardhat 本地节点添加进网络，可参考油管视频《<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=KhxXnHADWyw">Metamask 添加本地测试网络</a>》；</li>
+<li><a target="_blank" rel="noopener" href="https://support.metamask.io/managing-my-tokens/custom-tokens/how-to-display-tokens-in-metamask/#how-to-add-a-custom-token">按官网所示</a>把自己<strong>正在测的 ERC-20 代币合约地址</strong>加上去以方便查看账户余额。</li>
+</ul>
+<p>我在前端部分所依赖的第三方库和框架主要有 Vite、React、Ant Design Web3 和 Wagmi；由于前端是我所熟悉的，没啥心得体会，就不多赘述了。</p>
+<p>但是，在开发前端部分时，有一个点让我纠结了一段时间——</p>
+<p>虽说程序上是要先 mint 出一个新的 NFT 才能上架到市场进行交易，但在界面上的体现应该是一步到位的，即填完 NFT 相关信息点「确定」后就直接上架了。</p>
+<p>而作业的要求是先 mint 后上架的两步操作，这让我觉得有点不合理，或者说用户体验不好。</p>
+<p>最终还是因自己对 Wagmi 使用不熟而实在没想出实现方案，且急于交作业，就没再继续纠结下去……😂😂😂</p>
+<p>联调时若遇到问题卡住，可按下面步骤依次排查：</p>
+<ol>
+<li>上架出售 NFT 时需先调用 NFT 代币合约的 <code>setApprovalForAll</code> 对市场合约进行授权，以托管市场代为转移 NFT；</li>
+<li>发送上架出售请求之前需用 viem 或 ethers 的 <code>parseUnits</code> 转换为符合自己 ERC-20 代币合约中定义的 <code>decimals()</code> 的数（默认是 <code>18</code>）；</li>
+<li>购买 NFT 前在钱包中检查下当前账户自己自定义的 ERC-20 代币余额够不够，<strong>避免将以太币（ETH）看作是自己 ERC-20 代币的余额</strong>；</li>
+<li>购买 NFT 时需先调用自己 ERC-20 代币合约的 <code>approve</code> 对市场合约进行授权，以托管市场代为转账。</li>
+</ol>
+<p>联调也结束了，终于，到了最后一个环节——部署到 Sepolia 测试网！</p>
+<p>这需要有 Sepolia 的以太币，一般的获取方式是到那些「水龙头」一滴一滴地接，每天只能弄一丁点儿，多亏 <a target="_blank" rel="noopener" href="https://github.com/Mika-Lahtinen">@Mika-Lahtinen</a> 提供了一种 PoW 的方式，详见 <a target="_blank" rel="noopener" href="https://github.com/zer0fire">@zer0fire</a> 的笔记《<a target="_blank" rel="noopener" href="https://github.com/openbuildxyz/Web3-Frontend-Bootcamp/discussions/897">🚀极简拧水龙头教程 - 无需交易记录或账户余额</a>》。</p>
+<p>此时，将目光移回到 Hardhat 项目中，打开 <code>hardhat.config.ts</code> 文件，将 <code>defaultNetwork</code> 临时改为 <code>&#39;sepolia&#39;</code>，并在 <code>networks</code> 中添加一个 <code>sepolia</code>：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">config</span>: <span class="hljs-title class_">HardhatUserConfig</span> = &#123;<br>  <span class="hljs-attr">defaultNetwork</span>: <span class="hljs-string">&#x27;sepolia&#x27;</span>,  <span class="hljs-comment">// 默认网络临时改成这个</span><br>  <span class="hljs-attr">networks</span>: &#123;<br>    <span class="hljs-attr">sepolia</span>: &#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;你的 Sepolia endpoint URL&#x27;</span>,<br>      <span class="hljs-attr">accounts</span>: [<span class="hljs-string">&#x27;你的钱包账户私钥&#x27;</span>],<br>    &#125;,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>其中，Sepolia endpoint 可通过注册 <a target="_blank" rel="noopener" href="https://www.infura.io/">Infura</a> 或 <a target="_blank" rel="noopener" href="https://www.alchemy.com/">Alchemy</a> 账号获得。</p>
+<p>然后，按照上文中部署到本地节点的流程再走一遍，在前端把测试网环境的功能验证通过后就可以提交作业啦啦啦啦啦！</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我把 NFT market 这个 dApp 相关的代码全部在 <a target="_blank" rel="noopener" href="https://github.com/ourai/my-first-nft-market"><code>ourai/my-first-nft-market</code></a> 中开源了，打算日后把上文谈及所纠结的点尽量都解决掉，并打造成这类 demo 的标杆。</p>
+<p>由于里面已经配置了 Sepolia 合约地址，可直接本地运行操作，欢迎参考，探讨和指点。</p>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
