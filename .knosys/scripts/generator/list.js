@@ -3,7 +3,7 @@ const { existsSync } = require('fs');
 const { scanAndSortByAsc, ensureDirExists, cp, readData, saveData, getLocalDataRoot } = require('../helper');
 const { getCollectionRoot } = require('./helper');
 
-const collectionName = 'bookmarks';
+const collectionName = 'lists';
 
 function generateBookmarks(sourceRootPath) {
   const BOOKMARK_ROOT = getCollectionRoot(collectionName);
@@ -18,15 +18,15 @@ function generateBookmarks(sourceRootPath) {
     }
 
     const metadataDir = `${listRoot}/${slug}/.meta`;
-    const { type, ...bookmark } = readData(`${metadataDir}/basic.yml`);
+    const { type, ...list } = readData(`${metadataDir}/basic.yml`);
 
     if (type !== 'url') {
       return;
     }
 
-    data.items[slug] = bookmark;
+    data.items[slug] = list;
 
-    const frontMatter = [`title: ${bookmark.title}`, `description: ${bookmark.description || ''}`];
+    const frontMatter = [`title: ${list.title}`, `description: ${list.description || ''}`];
     const ext = ['jpg', 'png'].filter(ext => existsSync(`${metadataDir}/banner.${ext}`))[0];
 
     if (ext) {
@@ -37,7 +37,7 @@ function generateBookmarks(sourceRootPath) {
 
       const imagePath = `/knosys/${collectionName}/${slug}/banner.${ext}`;
 
-      frontMatter.push(`banner:\n  url: ${imagePath}\n  description: ${bookmark.title}`, `image: ${imagePath}`);
+      frontMatter.push(`banner:\n  url: ${imagePath}\n  description: ${list.title}`, `image: ${imagePath}`);
     }
 
     frontMatter.push(`permalink: /${collectionName}/${slug}/`);
