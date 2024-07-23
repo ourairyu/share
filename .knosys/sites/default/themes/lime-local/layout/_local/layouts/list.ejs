@@ -1,0 +1,25 @@
+<%- partial(theme.header && theme.header.partial || '_ksio/partials/header') %>
+<main class="Page-content">
+  <%- partial('_ksio/slots/banner') %>
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        <%- partial('_ksio/slots/header') %>
+      </header>
+      <div class="Article-content col-md-9">
+        <% const _inc_url_parts = page.path.replace('/index.html', '').slice(1).split('/') %>
+        <% const _inc_list = site.data['knosys/lists'].items[_inc_url_parts[1]] %>
+        <% if (_inc_list.description) { %><p><%= _inc_list.description %></p><h2>网址</h2><% } %>
+        <ul>
+          <% _inc_list.items.forEach(item => { %>
+            <li><a href="<%= item.url %>" target="_blank" rel="external nofollow"><%= item.title %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+      <footer class="Article-footer col-md-3"><%- partial('_ksio/widgets/share') %></footer>
+    </article>
+    <%- partial('_ksio/slots/aside') %>
+  </div>
+</main>
+<%- partial(theme.footer && theme.footer.partial || '_ksio/partials/footer') %>

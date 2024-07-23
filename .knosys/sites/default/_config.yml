@@ -146,18 +146,12 @@ ksio:
             - javascripts/ksio/components/toc
       post:
         extends: page
-      ksio/doc:
-        values:
-          ksio_asset_css:
-            - stylesheets/ksio/vendors/share
-          ksio_asset_js:
-            - javascripts/ksio/vendors/share.min
-            - javascripts/ksio/components/page
-            - javascripts/ksio/components/toc
       _local/layouts/index:
         values:
           ksio_asset_css:
             - local/pages/index
+      _local/layouts/list:
+        extends: page
     page:
       - scope:
           path: ""
@@ -171,6 +165,11 @@ ksio:
             - javascripts/ksio/initializers/time
             - javascripts/ksio/vendors/jquery.lazyload
             - javascripts/ksio/initializers/lazyload
+      - scope:
+          path: lists
+          type: knosys
+        values:
+          layout: _local/layouts/list
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
