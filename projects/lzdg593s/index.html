@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>Selfverse 黑客松概念版 - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="Selfverse 黑客松概念版">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">Selfverse 黑客松概念版</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>本项目的初期目标是开发一个无传统服务端的纯 dApp 实现《<a href="../../../../../summarization/notes/2024/08/03-010447/readme.md">把自己打造成超级个体</a>》中的部分功能雏形，可将其简单理解为是 <a target="_blank" rel="noopener" href="https://crossbell.io/">Crossbell</a> 相关产品的纯个人版（自部署&#x2F;自托管）。</p>
+<p>该概念版作为由 OpenBuild 组织的「<a href="../../../../../summarization/notes/2024/07/29-113434/readme.md">Web3 前端训练营线上黑客松</a>」与「<a target="_blank" rel="noopener" href="https://build.bewater.xyz/en/campaigns/rK6X-ETH-Shenzhen-Hackathon">ETH Shenzhen Hackathon</a>」的参赛作品，大致包含以下功能：</p>
+<ul>
+<li>常规文章的发布与展示；</li>
+<li>文章可被打赏；</li>
+<li>付费作品的管理与交易；</li>
+<li>直接捐赠&#x2F;打赏及相关数据统计；</li>
+<li>访客专属个人中心；</li>
+<li>可设置系统内流通代币为原生币或稳定币。</li>
+</ul>
+<p>除了上述必做功能之外，视时间与精力情况选做：</p>
+<ul>
+<li>常规视频的发布与展示；</li>
+<li>视频可被打赏；</li>
+<li>文章与视频可单独收费。</li>
+</ul>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>付费作品由散装作品构成，是散装作品的合集。</p>
+<p>功能梳理：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>功能点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统设置</td>
+<td>角色权限配置</td>
+<td>设置智能合约管理员、操作员</td>
+</tr>
+<tr>
+<td></td>
+<td>流通代币配置</td>
+<td></td>
+</tr>
+<tr>
+<td>散装作品</td>
+<td>散装作品列表</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>散装作品详情</td>
+<td>可进行打赏、购买操作</td>
+</tr>
+<tr>
+<td></td>
+<td>散装作品购买</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>散装作品管理</td>
+<td></td>
+</tr>
+<tr>
+<td>付费作品</td>
+<td>付费作品列表</td>
+<td>可进行购买操作</td>
+</tr>
+<tr>
+<td></td>
+<td>付费作品详情</td>
+<td>可进行购买操作</td>
+</tr>
+<tr>
+<td></td>
+<td>付费作品购买</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>付费作品管理</td>
+<td>可进行创建、更新、上架、下架、关联散装作品操作</td>
+</tr>
+<tr>
+<td>捐赠&#x2F;打赏</td>
+<td>专门页面直接打赏</td>
+<td>类似于 <a target="_blank" rel="noopener" href="https://ko-fi.com/ourai">Ko-fi</a> 这类的个人主页</td>
+</tr>
+<tr>
+<td></td>
+<td>散装作品打赏</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>打赏统计数据</td>
+<td></td>
+</tr>
+<tr>
+<td>专属荣誉</td>
+<td>某付费作品购买者</td>
+<td>需在付费作品中设置，购买作品后会自动获得被设置的 SBT</td>
+</tr>
+<tr>
+<td>个人中心</td>
+<td>购买记录</td>
+<td>展示已购买的付费的合集作品、散装作品</td>
+</tr>
+<tr>
+<td></td>
+<td>打赏记录</td>
+<td>展示直接打赏与按作品打赏的记录</td>
+</tr>
+</tbody></table>
+<p>技术要求：</p>
+<ul>
+<li>_<del>智能合约使用可升级的方式</del>_；</li>
+<li>关键且必要的信息与元数据分开存储管理以便于日后将元数据迁移出去利用 KnoSys 或第三方进行存储。</li>
+</ul>
+<p>需要考虑：</p>
+<ul>
+<li>钱可能需要统一管理，所以需要专门合约；</li>
+<li>访客有可能更换地址，所以需要用内部 ID 记录有过交易的访客。</li>
+</ul>
+<p>需要了解：</p>
+<ul>
+<li>链上数据的迁移问题。</li>
+</ul>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>本版 all in 以太坊，以实现功能为首要任务，不引入额外的技术复杂度，不过多考虑优化类问题。</p>
+<h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>技术依赖</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>身份标识</td>
+<td>区块链（暂时）</td>
+<td>日后跟 LinXoid 结合起来</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>区块链（暂时）</td>
+<td>日后改用 KnoSys 或其他</td>
+</tr>
+<tr>
+<td>经济体系</td>
+<td>区块链</td>
+<td>原生币、稳定币</td>
+</tr>
+<tr>
+<td>成就体系</td>
+<td>区块链</td>
+<td>以不可转移的 ERC-721 代币为主</td>
+</tr>
+</tbody></table>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
