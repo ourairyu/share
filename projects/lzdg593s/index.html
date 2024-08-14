@@ -252,6 +252,11 @@
 <td>需在付费作品中设置，购买作品后会自动获得被设置的 SBT</td>
 </tr>
 <tr>
+<td></td>
+<td>荣誉管理</td>
+<td>可进行勋章图片设置</td>
+</tr>
+<tr>
 <td>个人中心</td>
 <td>购买记录</td>
 <td>展示已购买的付费的合集作品、散装作品</td>
@@ -264,7 +269,7 @@
 </tbody></table>
 <p>技术要求：</p>
 <ul>
-<li>_<del>智能合约使用可升级的方式</del>_；</li>
+<li><del>智能合约使用可升级的方式</del>；</li>
 <li>关键且必要的信息与元数据分开存储管理以便于日后将元数据迁移出去利用 KnoSys 或第三方进行存储。</li>
 </ul>
 <p>需要考虑：</p>
@@ -306,6 +311,11 @@
 <td>以不可转移的 ERC-721 代币为主</td>
 </tr>
 </tbody></table>
+<h3 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h3><h4 id="代币基金"><a href="#代币基金" class="headerlink" title="代币基金"></a>代币基金</h4><p>统一管理收到的原生币、稳定币：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs solidity">contract TokenFunds &#123;<br>  uint256 private _fundBalance;<br>  uint256 private _totalReceived;<br><br>  string private _paymentToken;<br>  string private _nativeToken;<br>  string[] private _tokenSymbols = [&quot;USDT&quot;];<br><br>  constructor(string nativeToken, string paymentToken) &#123;<br>    _nativeToken = nativeToken;<br>    _setPaymentToken(paymentToken);<br>  &#125;<br><br>  _isNativeToken(string tokenSymbol) private view return (bool) &#123;<br>    return tokenSymbol == _nativeToken;<br>  &#125;<br><br>  _isTokenValid(string tokenSymbol) private view return (bool) &#123;<br>    bool valid = _isNativeToken(tokenSymbol);<br><br>    if (valid == false) &#123;<br>      // 遍历 `_tokenSymbols` 检查 `tokenSymbol`<br>    &#125;<br><br>    return valid;<br>  &#125;<br><br>  _setPaymentToken(string tokenSymbol) private &#123;<br>    require(_isTokenValid(tokenSymbol), &quot;Specific token isn&#x27;t supported.&quot;);<br>    _paymentToken = tokenSymbol;<br>  &#125;<br><br>  getPaymentToken() external view returns (string) &#123;<br>    return _paymentToken;<br>  &#125;<br><br>  updatePaymentToken(string newTokenSymbol) external &#123;<br>    _setPaymentToken(paymentToken);<br>  &#125;<br><br>  function _withdrawNativeToken(address payable receiver, uint256 amount) private &#123;<br>    // 提取原生币<br>  &#125;<br><br>  function withdraw(address receiver, uint256 amount) external &#123;<br>    // 判断当前流通代币是否为原生币，<br>    // 是的话就调用 `_withdrawNativeToken()`，<br>    // 否则调用 ERC-20 的 `transfer()`<br>  &#125;<br><br>  function deposit(uint256 amount) external &#123;<br>    // 判断当前流通代币是否为非原生币<br>  &#125;<br><br>  function deposit() external &#123;<br>    // 判断当前流通代币是否为原生币<br>  &#125;<br><br>  function getBalance() external view returns (uint256) &#123;<br>    return _fundBalance;<br>  &#125;<br><br>  function getReceived() external view returns (uint256) &#123;<br>    return _totalReceived;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h4><p>设置影响系统正常运行的关键信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs solidity">contract SystemSettings &#123;<br>  struct ModuleParam &#123;<br>    string key;<br>    address contractAddr;<br>  &#125;<br><br>  struct ModuleStorage &#123;<br>    address contractAddr;<br>    address admin;<br>  &#125;<br><br>  struct SystemModule &#123;<br>    string key;<br>    address contractAddr;<br>  &#125;<br><br>  mapping(string key =&gt; ModuleStorage) private _moduleMap;<br>  string[] private _moduleKeys;<br><br>  constructor(ModuleParam[] memory modules) &#123;<br>    // 将 `modules` 存储到 `_moduleMap` 与 `_moduleKeys` 中<br>  &#125;<br><br>  getModules() external view returns (SystemModule[] memory) &#123;<br>    // 根据 `_moduleKeys` 与 `_moduleMap` 拼装模块数组<br>  &#125;<br><br>  updateAdminForModules(address admin) external &#123;<br>    // 统一设置各个合约的管理员<br>  &#125;<br><br>  getPaymentToken() external view returns (string) &#123;<br>    // 调用基金合约获取流通代币<br>  &#125;<br><br>  updatePaymentToken(string newTokenSymbol) external &#123;<br>    // 调用基金合约更新流通代币<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 </div>
       <footer class="Article-footer col-md-3">
