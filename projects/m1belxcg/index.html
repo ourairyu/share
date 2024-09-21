@@ -155,19 +155,20 @@
 
 
       </header>
-      <div class="Article-content col-md-9"><p>将 OpenBuild 官网项目前端工程重构为可面向社区开源的状态，即拿出去不至于丢脸，所要满足的条件大致是：</p>
+      <div class="Article-content col-md-9"><p>将 OpenBuild 官网项目前端工程重构为可面向社区开源的状态，即拿出去不至于丢脸，甚至要让他人看到后惊呼赞叹！😂😂😂</p>
+<p>因而，所要满足的条件大致是：</p>
 <ol>
-<li>采用「模块化」模式划分目录结构；</li>
-<li>将核心模块与功能迁移适配过去；</li>
+<li>采用<a target="_blank" rel="noopener" href="https://ourai.ws/posts/patterns-of-directory-structure-in-frontend-projects/#section-4">「模块化」模式</a>重新划分目录结构，将核心模块与功能迁移适配过去；</li>
+<li>切换到 TypeScript 开发；</li>
 <li>引入 <a target="_blank" rel="noopener" href="https://handiejs.github.io/">Handie</a> 的配置驱动开发模式。</li>
 </ol>
+<p>我会最大限度复用自己过往的经验与积累，在这过程中值得记录的点都会写在《<a target="_blank" rel="noopener" href="https://juejin.cn/column/7410999714428354587">前端铲💩日记</a>》中。😁😁😁</p>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="当前技术栈"><a href="#当前技术栈" class="headerlink" title="当前技术栈"></a>当前技术栈</h3><p>整个工程以 <a target="_blank" rel="noopener" href="https://react.dev/">React</a>、<a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js</a> 作为底层依赖，其他用到的库主要有：</p>
 <table>
 <thead>
 <tr>
 <th>类别</th>
 <th>库&#x2F;框架</th>
-<th>作用</th>
 <th>备注</th>
 </tr>
 </thead>
@@ -175,113 +176,109 @@
 <td>工具</td>
 <td><a target="_blank" rel="noopener" href="https://lodash.com/">Lodash</a></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://github.com/validatorjs/validator.js">validator.js</a></td>
-<td>字符串模式校验</td>
-<td>极少用到，<strong>可低成本移除</strong></td>
+<td>字符串模式校验，极少用到，<strong>可低成本移除</strong></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://zelark.github.io/nano-id-cc/">Nano ID</a></td>
-<td>随机 ID 生成器</td>
-<td>极少用到，<strong>可低成本移除</strong></td>
+<td>随机 ID 生成器，极少用到，<strong>可低成本移除</strong></td>
 </tr>
 <tr>
 <td>数据处理</td>
 <td><a target="_blank" rel="noopener" href="https://react-redux.js.org/">React Redux</a></td>
-<td>全局状态管理</td>
-<td><strong>使用 <a target="_blank" rel="noopener" href="https://react.dev/reference/react/useReducer"><code>useReducer</code></a> 替代或完全不用全局状态管理</strong></td>
+<td>全局状态管理，<strong>使用 <a target="_blank" rel="noopener" href="https://react.dev/reference/react/useReducer"><code>useReducer</code></a> 替代或完全不用状态管理</strong></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://www.react-hook-form.com/">React Hook Form</a></td>
 <td>表单数据处理</td>
-<td></td>
 </tr>
 <tr>
 <td>UI</td>
 <td><a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a></td>
 <td>原子 CSS 工具类</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://heroicons.com/">Heroicons</a></td>
 <td>SVG 图标</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
-<td><a target="_blank" rel="noopener" href="https://headlessui.com/">Headless UI</a></td>
+<td><a target="_blank" rel="noopener" href="https://headlessui.com/v1">Headless UI</a></td>
 <td>无样式组件</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://daisyui.com/">daisyUI</a></td>
 <td>基于 Tailwind CSS 的类 <a target="_blank" rel="noopener" href="https://getbootstrap.com/">Bootstrap</a> CSS 组件</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://styled-components.com/">styled-components</a></td>
-<td>利用 ES 模板字符串写样式的组件</td>
-<td>极少用到，<strong>可低成本移除</strong></td>
+<td>利用 ES 模板字符串写样式的组件，极少用到，<strong>可低成本移除</strong></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://nextui.org/">NextUI</a></td>
 <td>UI 组件</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://bytemd.js.org/">ByteMD</a></td>
 <td>Markdown 内容编辑</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://surveyjs.io/">SurveyJS</a></td>
 <td>问卷表单</td>
-<td></td>
 </tr>
 <tr>
 <td>动画</td>
 <td><a target="_blank" rel="noopener" href="https://michalsnik.github.io/aos/">aos</a></td>
 <td>滚动动画</td>
-<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://animate.style/">Animate.css</a></td>
-<td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://www.framer.com/motion/">Framer Motion</a></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
 <td>Web3</td>
 <td><a target="_blank" rel="noopener" href="https://www.rainbowkit.com/">RainbowKit</a></td>
-<td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
 <td><a target="_blank" rel="noopener" href="https://wagmi.sh/">Wagmi</a></td>
 <td></td>
-<td></td>
 </tr>
 </tbody></table>
-<p>其中，有些很少用到或职责有冲突，考虑移除。</p>
-<p>并且，原代码跟 Next.js 耦合较紧，不便于日后迁出，亟需松绑。</p>
+<p>其中，有些很少用到或职责有冲突，考虑移除；并且，原代码跟 Next.js 耦合较紧，不便于日后迁出，亟需松绑。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>基于规范、约定、接口等「共识」编程。</p>
+<h3 id="调整目录结构"><a href="#调整目录结构" class="headerlink" title="调整目录结构"></a>调整目录结构</h3><p>在「模块化」模式的基础上，根据 Next.js 的限制进行些许兼容适配：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project/src<br>   ├── app<br>   │   └── ...<br>   ├── domain<br>   │   └── [domain-specific-module]<br>   │       ├── views<br>   │       │   ├── [detail-view]<br>   │       │   │   ├── [DetailViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   ├── [form-view]<br>   │       │   │   ├── [FormViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   └── [list-view]<br>   │       │       ├── [ListViewComponent].tsx<br>   │       │       ├── ...<br>   │       │       └── style.scss<br>   │       ├── widgets<br>   │       │   └── [domain-specific-widget]<br>   │       │       └── ...<br>   │       ├── helper.ts<br>   │       ├── index.ts<br>   │       ├── model.ts<br>   │       ├── repository.ts<br>   │       └── ...<br>   ├── shared<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>app</code> 取代了 <code>entry</code> 文件夹作为页面渲染的入口。</p>
+<p>在文件引用层面有所限制：</p>
+<ul>
+<li><code>shared</code> 文件夹下的文件不可引用除 <code>public</code> 之外的任何其他外部文件夹下的文件；</li>
+<li><code>domain</code> 文件夹下的文件仅可引用 <code>public</code>、<code>shared</code> 和其他 <code>domain</code> 文件夹下的文件；</li>
+<li><code>app</code> 文件夹下的文件可引用 <code>public</code>、<code>shared</code>、<code>domain</code> 及同文件夹下的文件。</li>
+</ul>
+<p>使用 <code>@/*</code> 引用 <code>shared</code> 下的文件。</p>
+<h3 id="重塑技术栈"><a href="#重塑技术栈" class="headerlink" title="重塑技术栈"></a>重塑技术栈</h3><p>通用 UI 开发以 Tailwind CSS、daisyUI、Headless UI 这三者搭配使用为主，交互上的不足之处由 NextUI 等原子组件弥补，但 styled-components 这种从「思想」层面相悖的坚决移除。</p>
+<p><strong>以「组件」而非「CSS 类」的形式向外透出</strong>，基于它们封装出「项目级」的通用 UI 组件放在 <code>src/shared/components</code> 文件夹中，API 尽量兼容 <a target="_blank" rel="noopener" href="https://petals-ui.github.io/">Petals</a> 中定义的。</p>
+<p>图标使用 Heroicons 和自定义的，优先用 SVG React 组件的形式，可用 <a target="_blank" rel="noopener" href="https://fontawesome.com/">Font Awesome</a> 作为候补。</p>
 
 </div>
       <footer class="Article-footer col-md-3">
