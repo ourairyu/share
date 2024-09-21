@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>OpenBuild 官网重构 - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="OpenBuild 官网重构">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">OpenBuild 官网重构</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>将 OpenBuild 官网项目前端工程重构为可面向社区开源的状态，即拿出去不至于丢脸，所要满足的条件大致是：</p>
+<ol>
+<li>采用「模块化」模式划分目录结构；</li>
+<li>将核心模块与功能迁移适配过去；</li>
+<li>引入 <a target="_blank" rel="noopener" href="https://handiejs.github.io/">Handie</a> 的配置驱动开发模式。</li>
+</ol>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="当前技术栈"><a href="#当前技术栈" class="headerlink" title="当前技术栈"></a>当前技术栈</h3><p>整个工程以 <a target="_blank" rel="noopener" href="https://react.dev/">React</a>、<a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js</a> 作为底层依赖，其他用到的库主要有：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>库&#x2F;框架</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工具</td>
+<td><a target="_blank" rel="noopener" href="https://lodash.com/">Lodash</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/validatorjs/validator.js">validator.js</a></td>
+<td>字符串模式校验</td>
+<td>极少用到，<strong>可低成本移除</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://zelark.github.io/nano-id-cc/">Nano ID</a></td>
+<td>随机 ID 生成器</td>
+<td>极少用到，<strong>可低成本移除</strong></td>
+</tr>
+<tr>
+<td>数据处理</td>
+<td><a target="_blank" rel="noopener" href="https://react-redux.js.org/">React Redux</a></td>
+<td>全局状态管理</td>
+<td><strong>使用 <a target="_blank" rel="noopener" href="https://react.dev/reference/react/useReducer"><code>useReducer</code></a> 替代或完全不用全局状态管理</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://www.react-hook-form.com/">React Hook Form</a></td>
+<td>表单数据处理</td>
+<td></td>
+</tr>
+<tr>
+<td>UI</td>
+<td><a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a></td>
+<td>原子 CSS 工具类</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://heroicons.com/">Heroicons</a></td>
+<td>SVG 图标</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://headlessui.com/">Headless UI</a></td>
+<td>无样式组件</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://daisyui.com/">daisyUI</a></td>
+<td>基于 Tailwind CSS 的类 <a target="_blank" rel="noopener" href="https://getbootstrap.com/">Bootstrap</a> CSS 组件</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://styled-components.com/">styled-components</a></td>
+<td>利用 ES 模板字符串写样式的组件</td>
+<td>极少用到，<strong>可低成本移除</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://nextui.org/">NextUI</a></td>
+<td>UI 组件</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://bytemd.js.org/">ByteMD</a></td>
+<td>Markdown 内容编辑</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://surveyjs.io/">SurveyJS</a></td>
+<td>问卷表单</td>
+<td></td>
+</tr>
+<tr>
+<td>动画</td>
+<td><a target="_blank" rel="noopener" href="https://michalsnik.github.io/aos/">aos</a></td>
+<td>滚动动画</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://animate.style/">Animate.css</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://www.framer.com/motion/">Framer Motion</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Web3</td>
+<td><a target="_blank" rel="noopener" href="https://www.rainbowkit.com/">RainbowKit</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://wagmi.sh/">Wagmi</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>其中，有些很少用到或职责有冲突，考虑移除。</p>
+<p>并且，原代码跟 Next.js 耦合较紧，不便于日后迁出，亟需松绑。</p>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
