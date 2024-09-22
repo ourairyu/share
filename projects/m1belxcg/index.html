@@ -68,6 +68,8 @@
     
 <link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
 
+<link rel="stylesheet" href="/local/syntax-highlighting.css">
+
     
 <script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
 
@@ -163,7 +165,8 @@
 <li>引入 <a target="_blank" rel="noopener" href="https://handiejs.github.io/">Handie</a> 的配置驱动开发模式。</li>
 </ol>
 <p>我会最大限度复用自己过往的经验与积累，在这过程中值得记录的点都会写在《<a target="_blank" rel="noopener" href="https://juejin.cn/column/7410999714428354587">前端铲💩日记</a>》中。😁😁😁</p>
-<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="当前技术栈"><a href="#当前技术栈" class="headerlink" title="当前技术栈"></a>当前技术栈</h3><p>整个工程以 <a target="_blank" rel="noopener" href="https://react.dev/">React</a>、<a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js</a> 作为底层依赖，其他用到的库主要有：</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>了解项目代码与梳理官网功能。</p>
+<h3 id="当前技术栈"><a href="#当前技术栈" class="headerlink" title="当前技术栈"></a>当前技术栈</h3><p>整个工程以 <a target="_blank" rel="noopener" href="https://react.dev/">React</a>、<a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js</a> 作为底层依赖，其他用到的库主要有：</p>
 <table>
 <thead>
 <tr>
@@ -264,7 +267,7 @@
 </tr>
 </tbody></table>
 <p>其中，有些很少用到或职责有冲突，考虑移除；并且，原代码跟 Next.js 耦合较紧，不便于日后迁出，亟需松绑。</p>
-<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>基于规范、约定、接口等「共识」编程。</p>
+<h3 id="工程目录结构"><a href="#工程目录结构" class="headerlink" title="工程目录结构"></a>工程目录结构</h3><h3 id="业务功能模块"><a href="#业务功能模块" class="headerlink" title="业务功能模块"></a>业务功能模块</h3><h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>基于规范、约定、接口等「共识」编程。</p>
 <h3 id="调整目录结构"><a href="#调整目录结构" class="headerlink" title="调整目录结构"></a>调整目录结构</h3><p>在「模块化」模式的基础上，根据 Next.js 的限制进行些许兼容适配：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project/src<br>   ├── app<br>   │   └── ...<br>   ├── domain<br>   │   └── [domain-specific-module]<br>   │       ├── views<br>   │       │   ├── [detail-view]<br>   │       │   │   ├── [DetailViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   ├── [form-view]<br>   │       │   │   ├── [FormViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   └── [list-view]<br>   │       │       ├── [ListViewComponent].tsx<br>   │       │       ├── ...<br>   │       │       └── style.scss<br>   │       ├── widgets<br>   │       │   └── [domain-specific-widget]<br>   │       │       └── ...<br>   │       ├── helper.ts<br>   │       ├── index.ts<br>   │       ├── model.ts<br>   │       ├── repository.ts<br>   │       └── ...<br>   ├── shared<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
 
