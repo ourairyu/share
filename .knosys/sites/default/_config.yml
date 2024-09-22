@@ -170,7 +170,11 @@ ksio:
           type: knosys
         values:
           layout: _local/layouts/list
-
+      - scope:
+          path: projects
+        values:
+          ksio_asset_css:
+            - local/syntax-highlighting
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
