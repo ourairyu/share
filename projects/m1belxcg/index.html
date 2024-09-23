@@ -267,9 +267,24 @@
 </tr>
 </tbody></table>
 <p>其中，有些很少用到或职责有冲突，考虑移除；并且，原代码跟 Next.js 耦合较紧，不便于日后迁出，亟需松绑。</p>
-<h3 id="工程目录结构"><a href="#工程目录结构" class="headerlink" title="工程目录结构"></a>工程目录结构</h3><h3 id="业务功能模块"><a href="#业务功能模块" class="headerlink" title="业务功能模块"></a>业务功能模块</h3><h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>基于规范、约定、接口等「共识」编程。</p>
-<h3 id="调整目录结构"><a href="#调整目录结构" class="headerlink" title="调整目录结构"></a>调整目录结构</h3><p>在「模块化」模式的基础上，根据 Next.js 的限制进行些许兼容适配：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project/src<br>   ├── app<br>   │   └── ...<br>   ├── domain<br>   │   └── [domain-specific-module]<br>   │       ├── views<br>   │       │   ├── [detail-view]<br>   │       │   │   ├── [DetailViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   ├── [form-view]<br>   │       │   │   ├── [FormViewComponent].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   └── [list-view]<br>   │       │       ├── [ListViewComponent].tsx<br>   │       │       ├── ...<br>   │       │       └── style.scss<br>   │       ├── widgets<br>   │       │   └── [domain-specific-widget]<br>   │       │       └── ...<br>   │       ├── helper.ts<br>   │       ├── index.ts<br>   │       ├── model.ts<br>   │       ├── repository.ts<br>   │       └── ...<br>   ├── shared<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
+<h3 id="工程目录结构"><a href="#工程目录结构" class="headerlink" title="工程目录结构"></a>工程目录结构</h3><p>目前，前端工程的目录结构大体如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project<br>   ├── app<br>   │   └── ...<br>   ├── components<br>   │   └── ...<br>   ├── constants<br>   │   └── ...<br>   ├── hooks<br>   │   └── ...<br>   ├── lib<br>   │   └── ...<br>   ├── services<br>   │   └── ...<br>   ├── state<br>   │   └── ...<br>   ├── styleds<br>   │   └── ...<br>   ├── styles<br>   │   └── ...<br>   ├── utils<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
+
+<p>这是妥妥的「野生」模式，可以说<a target="_blank" rel="noopener" href="https://ourai.ws/posts/patterns-of-directory-structure-in-frontend-projects/#section-2">该模式所带来的问题</a>在项目里几乎都具备了……😩😩😩</p>
+<h3 id="代码编写问题"><a href="#代码编写问题" class="headerlink" title="代码编写问题"></a>代码编写问题</h3><p>除了上述「野生」模式所带来的常见问题外，还存在一些其他问题：</p>
+<ul>
+<li>页面文件中有 HTTP API 请求的拼装逻辑；</li>
+<li>界面渲染的代码中充斥着 Tailwind CSS 的类名；</li>
+<li>很多非必要的重新渲染，同时导致发起多次重复请求；</li>
+<li>列表加载与翻页逻辑大量冗余；</li>
+<li>通用的 UI 组件无法直观地区分出是 client only、server only 还是两者兼容的；</li>
+<li>哪些部分该服务端渲染，哪些该客户端渲染，并没有很好地划分与优化；</li>
+<li>……</li>
+</ul>
+<p>总而言之，滥用 React Hooks 机制，几乎没有抽象，封装性极差，无论是开发者体验还是用户体验都很烂！</p>
+<h3 id="业务功能模块"><a href="#业务功能模块" class="headerlink" title="业务功能模块"></a>业务功能模块</h3><h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>基于规范、约定、接口等「共识」编程。</p>
+<h3 id="调整目录结构"><a href="#调整目录结构" class="headerlink" title="调整目录结构"></a>调整目录结构</h3><p>在<a target="_blank" rel="noopener" href="https://ourai.ws/posts/patterns-of-directory-structure-in-frontend-projects/#section-4">「模块化」模式</a>的基础上，根据 Next.js 的限制进行些许兼容适配：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project/src<br>   ├── app<br>   │   └── ...<br>   ├── domain<br>   │   └── [domain-specific-module]<br>   │       ├── views<br>   │       │   ├── [detail-view]<br>   │       │   │   ├── [DetailViewWidget].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   ├── [form-view]<br>   │       │   │   ├── [FormViewWidget].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   └── [list-view]<br>   │       │       ├── [ListViewWidget].tsx<br>   │       │       ├── ...<br>   │       │       └── style.scss<br>   │       ├── widgets<br>   │       │   └── [domain-specific-widget]<br>   │       │       └── ...<br>   │       ├── helper.ts<br>   │       ├── index.ts<br>   │       ├── model.ts<br>   │       ├── repository.ts<br>   │       └── ...<br>   ├── shared<br>   │   ├── components<br>   │   │   │   ├── control<br>   │   │   │   │   └── ...<br>   │   │   │   └── ...<br>   │   │   └── ...<br>   │   ├── utils<br>   │   │   └── ...<br>   │   ├── styles<br>   │   │   └── ...<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
 
 <p>其中，<code>app</code> 取代了 <code>entry</code> 文件夹作为页面渲染的入口。</p>
 <p>在文件引用层面有所限制：</p>
@@ -280,7 +295,7 @@
 </ul>
 <p>使用 <code>@/*</code> 引用 <code>shared</code> 下的文件。</p>
 <h3 id="重塑技术栈"><a href="#重塑技术栈" class="headerlink" title="重塑技术栈"></a>重塑技术栈</h3><p>通用 UI 开发以 Tailwind CSS、daisyUI、Headless UI 这三者搭配使用为主，交互上的不足之处由 NextUI 等原子组件弥补，但 styled-components 这种从「思想」层面相悖的坚决移除。</p>
-<p><strong>以「组件」而非「CSS 类」的形式向外透出</strong>，基于它们封装出「项目级」的通用 UI 组件放在 <code>src/shared/components</code> 文件夹中，API 尽量兼容 <a target="_blank" rel="noopener" href="https://petals-ui.github.io/">Petals</a> 中定义的。</p>
+<p><strong>以「组件」而非「CSS 类」的形式向外透出</strong>，基于它们封装出「项目级」的通用 UI 组件放在 <code>src/shared/components/control</code> 文件夹中，API 尽量兼容 <a target="_blank" rel="noopener" href="https://petals-ui.github.io/">Petals</a> 中定义的。</p>
 <p>图标使用 Heroicons 和自定义的，优先用 SVG React 组件的形式，可用 <a target="_blank" rel="noopener" href="https://fontawesome.com/">Font Awesome</a> 作为候补。</p>
 
 </div>
