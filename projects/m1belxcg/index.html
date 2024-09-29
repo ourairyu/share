@@ -288,7 +288,14 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">project/src<br>   ├── app<br>   │   └── ...<br>   ├── domain<br>   │   └── [domain-specific-module]<br>   │       ├── views<br>   │       │   ├── [detail-view]<br>   │       │   │   ├── [DetailViewWidget].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   ├── [form-view]<br>   │       │   │   ├── [FormViewWidget].tsx<br>   │       │   │   ├── ...<br>   │       │   │   └── style.scss<br>   │       │   └── [list-view]<br>   │       │       ├── [ListViewWidget].tsx<br>   │       │       ├── ...<br>   │       │       └── style.scss<br>   │       ├── widgets<br>   │       │   └── [domain-specific-widget]<br>   │       │       └── ...<br>   │       ├── helper.ts<br>   │       ├── index.ts<br>   │       ├── model.ts<br>   │       ├── repository.ts<br>   │       └── ...<br>   ├── entry<br>   │   ├── aspects<br>   │   │   └── ...<br>   │   ├── layouts<br>   │   │   └── ...<br>   │   └── ...<br>   ├── shared<br>   │   ├── components<br>   │   │   │   ├── control<br>   │   │   │   │   └── ...<br>   │   │   │   └── ...<br>   │   │   └── ...<br>   │   ├── utils<br>   │   │   └── ...<br>   │   ├── styles<br>   │   │   └── ...<br>   │   └── ...<br>   └── ...<br></code></pre></td></tr></table></figure>
 
 <p>其中，<code>app</code> 除了定义页面路由之外，还取代了 <code>entry</code> 文件夹作为页面渲染的入口。</p>
-<p>在文件引用层面有所限制：</p>
+<h4 id="文件位置挪动"><a href="#文件位置挪动" class="headerlink" title="文件位置挪动"></a>文件位置挪动</h4><p>将 <code>app</code> 文件夹下的文件尽可能向外移：</p>
+<ul>
+<li>与业务逻辑强相关的弄到 <code>domain</code> 中；</li>
+<li>与页面渲染强相关的弄到 <code>entry</code> 中。</li>
+</ul>
+<p>原则上 <code>app</code> 下只有受 Next.js 限制的兼容适配类文件。</p>
+<p>通用性较差的全局文件也要挪到上述两个文件夹中。</p>
+<h4 id="文件引用规则"><a href="#文件引用规则" class="headerlink" title="文件引用规则"></a>文件引用规则</h4><p>在文件引用层面有所限制：</p>
 <ul>
 <li><code>shared</code> 文件夹下的文件不可引用除 <code>public</code> 之外的任何其他外部文件夹下的文件；</li>
 <li><code>domain</code> 文件夹下的文件仅可引用 <code>public</code>、<code>shared</code> 和其他 <code>domain</code> 文件夹下的文件；</li>
