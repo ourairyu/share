@@ -1,3 +1,54 @@
 <%- partial(theme.header && theme.header.partial || '_ksio/partials/header') %>
-<%- partial('_ksio/slots/content') %>
+<main class="Page-content">
+  <%- partial('_ksio/slots/banner') %>
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        <h1 class="Article-title"><%= config.title %></h1>
+      </header>
+      <div class="Article-content">
+        <p>哇～我共享的内容被你发现了！🌝🌗🌚</p>
+        <p>这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「<a href="https://ourai.ws/" target="_blank" rel="nofollow" style="font-weight: normal;">欧雷流</a>」哟！</p>
+        <h2>专题</h2>
+        <p>用相对体系化的方式对已总结的知识进行整理并索引——</p>
+        <% const categories = ['monogatari', 'life', 'web-development'] %>
+        <% categories.forEach(c => { %>
+          <% if (c === 'monogatari') { %>
+            <h3>人生轨迹</h3>
+            <p>记录我的人生巨轮所滚过的痕迹：</p>
+          <% } else if (c === 'life') { %>
+            <h3>体验生活</h3>
+            <p>生下来，活下去，每天都要精彩：</p>
+          <% } else if (c === 'web-development') { %>
+            <h3>构建数字世界</h3>
+            <p>作为数字世界的创造者所该具备的：</p>
+          <% } %>
+          <div class="Grid is-active">
+            <% if (c === 'monogatari') { %><div class="Grid-item"><%- partial('_local/components/topic-card', { slug: 'road-to-the-final-goal', external: true }) %></div><% } %>
+            <% site.data['knosys/repos'].sequence.slice().reverse().forEach(r => { %>
+              <% const repo = site.data['knosys/repos'].items[r] %>
+              <% if ((repo.categories || []).includes(c)) { %><div class="Grid-item"><%- partial('_local/components/topic-card', { slug: r, external: false }) %></div><% } %>
+            <% }) %>
+          </div>
+        <% }) %>
+        <% const uncategorized = [] %>
+        <% site.data['knosys/repos'].sequence.slice().reverse().forEach(r => { %>
+          <% const repo = site.data['knosys/repos'].items[r] %>
+          <% if (!categories.includes(repo.categories[0])) { %>
+            <% uncategorized.push(r) %>
+          <% } %>
+        <% }) %>
+        <% if (uncategorized.length > 0) { %>
+          <h3>其他</h3>
+          <p>暂未归类的的知识：</p>
+          <div class="Grid is-active">
+            <% uncategorized.forEach(r => { %>
+              <div class="Grid-item"><%- partial('_local/components/topic-card', { slug: r, external: false }) %></div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    </article>
+  </div>
+</main>
 <%- partial(theme.footer && theme.footer.partial || '_ksio/partials/footer') %>

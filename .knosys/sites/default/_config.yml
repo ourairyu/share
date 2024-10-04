@@ -149,7 +149,7 @@ ksio:
       _local/layouts/index:
         values:
           ksio_asset_css:
-            - local/pages/index
+            - local/pages/index/style
       _local/layouts/list:
         extends: page
     page:
