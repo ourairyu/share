@@ -1,0 +1,53 @@
+<%- partial(theme.header && theme.header.partial || '_ksio/partials/header') %>
+<main class="Page-content">
+  <%- partial('_ksio/slots/banner') %>
+  <% if (!page.banner) { %>
+    <% const bannerUrl = 'local/images/knowledge-base.jpg' %>
+    <div class="Page-banner hidden-xs" style="background-image: url('<%= url_for(bannerUrl) %>');">
+      <figure class="sr-only">
+        <%- image_tag(bannerUrl, { alt: 'Knowledge Base' }) %>
+        <figcaption>Knowledge Base</figcaption>
+      </figure>
+    </div>
+  <% } %>
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        <%- partial('_ksio/slots/header') %>
+      </header>
+      <div class="Article-content col-md-9">
+        <% if (page.description) { %><p><%= page.description %></p><% } %>
+        <% const url_parts = page.path.replace('/index.html', '').slice(1).split('/') %>
+        <% const repo_id = url_parts[1] %>
+        <% if (repo_id === 'weekly') { %>
+          <% const weekly_data = site.data['knosys/weeklies'] %>
+          <% weekly_data.yearly.slice().reverse().forEach(yearly => { %>
+            <h2 title="共 <%= yearly.ids.length %> 篇"><%= yearly.year %></h2>
+            <ul>
+              <% yearly.ids.slice().reverse().forEach(id => { %>
+                <% const note = weekly_data.items[id] %>
+                <li><a href="/weeklies/<%= note.slug || note.id %>/"<% if (note.description) { %> title="<%= note.description %>"<% } %> target="_blank"><%= note.title %></a></li>
+              <% }) %>
+            </ul>
+          <% }) %>
+        <% } else { %>
+          <% const repo = site.data['knosys/repos'].items[repo_id] %>
+          <% let toc_skip = true %>
+          <% if (repo.content && repo_id === 'frontend-engineering') { %>
+            <% toc_skip = false %>
+            <h2>介绍</h2>
+            <%- markdown(repo.content) %>
+          <% } %>
+          <% if (repo && (repo.items || []).length > 0) { %>
+            <h2<% if (toc_skip) { %> data-toc-skip="true"<% } %>>目录</h2>
+            <%- page.content %>
+          <% } %>
+        <% } %>
+      </div>
+      <footer class="Article-footer col-md-3"><%- partial('_ksio/slots/footer') %></footer>
+    </article>
+    <%- partial('_ksio/slots/aside') %>
+  </div>
+</main>
+<%- partial(theme.footer && theme.footer.partial || '_ksio/partials/footer') %>
