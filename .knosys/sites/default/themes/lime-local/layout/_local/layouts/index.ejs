@@ -34,7 +34,7 @@
         <% const uncategorized = [] %>
         <% site.data['knosys/repos'].sequence.slice().reverse().forEach(r => { %>
           <% const repo = site.data['knosys/repos'].items[r] %>
-          <% if (!categories.includes(repo.categories[0])) { %>
+          <% if (!Array.isArray(repo.categories) || !categories.includes(repo.categories[0])) { %>
             <% uncategorized.push(r) %>
           <% } %>
         <% }) %>
