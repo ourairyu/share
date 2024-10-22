@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>我给 Answer 提了俩 PR - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="我给 Answer 提了俩 PR">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+<link rel="stylesheet" href="/local/syntax-highlighting.css">
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">我给 Answer 提了俩 PR</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>有个 OpenBuild 的社区生态项目貌似搁置得有点久了，发起者想要继续迅速地推进，但一直没什么起色，一时间也找不到其他合适的人——没办法，只能我去接下来了。</p>
+<p>这个项目要做的事是给开源问答平台 <a target="_blank" rel="noopener" href="https://answer.dev/">Answer</a> 开发一个支持用 Web3 钱包登录的插件；从要实现的功能上来看，这应该是个很小的项目，开发加上联调前后端算在一起估计 1.5～3 个人日。</p>
+<p>然而，现实却给了我一棒槌……</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>初步从<a target="_blank" rel="noopener" href="https://answer.dev/docs/development/plugins">官方的插件开发文档</a>来看，要做的应该是「连接器-后端插件」。</p>
+<p>以此为前提，大致了解了下<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer-plugins">几个已有连接器的代码</a>发现，每个插件只能指定一种类型，且后端插件是不能直接支持 UI 的，它们都是跳转到外部的授权用 URL。</p>
+<p>可是，Web3 钱包登录并没有现成的外部授权用 URL，要实现需求那就可能得另外编写个配套的「路由-标准 UI 插件」，开发一个页面：</p>
+<ol>
+<li>显示连接钱包按钮；</li>
+<li>连接钱包后用户签名；<ol>
+<li><strong>从后端获取 nonce</strong>，前端传入钱包地址；</li>
+<li>前端唤起钱包让用户签名；</li>
+</ol>
+</li>
+<li><strong>签名后调用后端授权接口</strong>，前端传入用户签名信息、钱包地址等；</li>
+<li>请求成功后返回到主界面。</li>
+</ol>
+<p>上面文字加粗部分是需要与后端进行数据交互的，也就是得有两个后端接口。</p>
+<p>流程看起来很简单是吧？也确实是很简单！</p>
+<h2 id="开发过程"><a href="#开发过程" class="headerlink" title="开发过程"></a>开发过程</h2><p>后端部分几个月前就已大体开发完成，基本只差前端界面和联调。</p>
+<p>由于这个项目没有前后端分离，我要是完整运行的话，从官方文档的信息来看，得安装 Docker、数据库等。</p>
+<p>但我本地之前没安装这些，目前也没有做其他用到这些的项目的打算，不可能单单为了这而去安装几乎用不到的软件占用宝贵的电脑存储空间。</p>
+<p>于是，我就先采用纯前端的方式把界面布局、样式和功能开发好，即便后端接口请求都失败了；算上阅读文档、代码熟悉插件基本机制的时间，大概用了 1 人日左右完成。</p>
+<p>跟负责后端的人约了周末的一天集中联调，争取搞定交付，可却挫折连连……</p>
+<p>因为我本地没有安装并设置后端环境，无法走正常的插件加载运行流程，有些问题在开发阶段并未遇到；当让后端小伙伴下载我的代码跑整个流程时，各种「奇奇怪怪」的问题就冒了出来……</p>
+<p>起初，基本一遇到前端问题就发起视频会议，看他是怎么操作的，我指导他去解决——搞了几次我突然发觉，这不就是传说中的「结对编程」吗？😂😂😂</p>
+<p>后来我心想：「这样下去不行啊，实在是太低效了！」</p>
+<p>最终，我尝试放下心中的芥蒂，让他指导我如何把后端跑起来，就可以自己去测试并调整前端代码了。</p>
+<p>被指导后发现，实际我真的只需额外安装 Go 就行，数据库直接用 macOS 自带的 SQLite 即可，更不用去搞 Docker——真应该一开始就让他当我的「导航员」！</p>
+<p>虽说之后并没有顺风顺水，但我们无需再开视频会议了，有问题只需微信上发个截图并简单描述下就可以了，效率大大提升！</p>
+<p>我在测试自己开发的插件时，还发现了一个插件加载机制上的 bug，就<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer/pull/1140">顺手修掉并提了个 PR</a>，成就额外 +1！😁😁😁</p>
+<p>经过一两天的收尾，我们开发的插件也交付了，<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer-plugins/pull/235">在官方 reviewer 的指导与建议下，将原本的两个插件合并为一个</a>——表面上是「路由-标准 UI 插件」，实则也是「连接器-后端插件」。</p>
+<p>至此，我们集中在这三五天里处理掉了「便秘」问题，撒花！🎉🎉🎉</p>
+<h2 id="踩坑经验"><a href="#踩坑经验" class="headerlink" title="踩坑经验"></a>踩坑经验</h2><p>本次是基于主项目版本 <a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer/tree/v1.4.0">1.4.0</a> 开发，官方文档、插件体系的不完善和自己较为别扭的心态令我踩了些坑，下面针对前端开发人员分享下本地调试的要点，以便少走弯路！</p>
+<p>首先，对像我一样介意的人再次强调下——<strong>只需额外安装 Go，数据库可用 macOS 自带的 SQLite！</strong></p>
+<p>以我们开发的插件为例，假设插件名为 <code>connector-wallet</code>——</p>
+<h3 id="后端环境"><a href="#后端环境" class="headerlink" title="后端环境"></a>后端环境</h3><p>确保在主项目的 <code>cmd/answer/main.go</code> 里引入了插件包，即使它当前并不存在：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>  answercmd <span class="hljs-string">&quot;github.com/apache/incubator-answer/cmd&quot;</span><br><br>  _ <span class="hljs-string">&quot;github.com/apache/incubator-answer-plugins/connector-wallet&quot;</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>无论是纯前端插件还是「表面上是前端插件」的插件，在调试时需将用模板生成的代码放到 <code>ui/src/plugins</code> 文件夹下，并在根文件夹创建 <code>go.work</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">go 1.22.0<br><br>toolchain go1.23.2<br><br>use (<br>    .<br>    ./ui/src/plugins/connector-wallet<br>)<br></code></pre></td></tr></table></figure>
+
+<p>执行 <code>make ui</code> 构建前端代码，再用 <code>go build -o answer ./cmd/answer/main.go</code> 编译后端代码，会生成 <code>answer</code> 文件，接下来的操作都用它。</p>
+<p>执行 <code>./answer init -C ./answer-data/</code> 初始化系统，需要在浏览器中访问 <code>http://localhost</code> 填写信息，其中数据库要选择 SQLite 且文件存放路径把 <code>/data</code> 替换成 <code>answer-data</code> 文件夹的绝对路径。</p>
+<p>执行 <code>./answer run -C ./answer-data/</code> 启动后端服务，再次访问 <code>http://localhost</code> 即可登录初始账号并到后台启用要调试的插件！</p>
+<p>最后将 <code>ui/.env.development</code> 中的 <code>REACT_APP_API_URL</code> 改为 <code>http://localhost:80/</code> 就能启动前端开发服务器访问后端接口了。</p>
+<h3 id="前端环境"><a href="#前端环境" class="headerlink" title="前端环境"></a>前端环境</h3><p>安装好依赖后，需将<strong>插件文件夹</strong>下的几个文件夹删除，否则会引起问题：</p>
+<ul>
+<li>删除 <code>dist</code> 文件夹和 <code>package.json</code> 中的 <code>main</code>、<code>module</code>、<code>types</code>、<code>exports</code> 字段，否则页面渲染的是编译后的文件，源文件的变动不会响应刷新；</li>
+<li>删除 <code>node_modules</code>，否则插件中读取的 i18n 配置不是主项目的，可能是由于 <code>react-i18next</code> 底层没使用单例模式而实际产生了两份配置。</li>
+</ul>
+<h3 id="发布插件"><a href="#发布插件" class="headerlink" title="发布插件"></a>发布插件</h3><p>若前端插件中添加了额外的依赖，需要修改插件包中 <code>vite.config.ts</code> 的配置：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> cssInjectedByJsPlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plugin-css-injected-by-js&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;<br>  <span class="hljs-attr">plugins</span>: [<br>    ...,<br>    <span class="hljs-title function_">cssInjectedByJsPlugin</span>(),    <span class="hljs-comment">// 有样式文件引入时必须，不然会样式错乱</span><br>    ...,<br>  ],<br>  <span class="hljs-attr">build</span>: &#123;<br>    ...,<br>    <span class="hljs-attr">rollupOptions</span>: &#123;<br>      <span class="hljs-attr">external</span>: [<br>        ...,    <span class="hljs-comment">// 把自己额外的依赖进行声明</span><br>      ],<br>      <span class="hljs-attr">output</span>: &#123;<br>        <span class="hljs-attr">globals</span>: &#123;<br>          ...,    <span class="hljs-comment">// 把自己额外的依赖进行声明</span><br>        &#125;,<br>      &#125;,<br>    &#125;,<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>感谢 OpenBuild 提供的这次机会，虽说一开始因为有我认为更重要更优先的事需要去做而不太想接……但时间使劲儿挤挤的话还是会有的嘛！</p>
+<p>感谢后端小伙伴的积极配合，让我们一起把这拖延几个月的「便秘」问题给解决了！</p>
+<p>感谢 Answer 官方的 reviewers 陪我在 PR 里练英语，为我之后的国际化发展开了个好头儿！</p>
+<p>虽然之前我也给其他几个开源项目提过 PR，但基本都是小修小补，每次都没啥交流就直接合进去了；这次给 Answer 做贡献让我有了真正的做开源的感觉！</p>
+<p>Salute to all OPEN SOURCERORs!!!</p>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2024 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
