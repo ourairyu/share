@@ -189,7 +189,7 @@
 <p>我在测试自己开发的插件时，还发现了一个插件加载机制上的 bug，就<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer/pull/1140">顺手修掉并提了个 PR</a>，成就额外 +1！😁😁😁</p>
 <p>经过一两天的收尾，我们开发的插件也交付了，<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer-plugins/pull/235">在官方 reviewer 的指导与建议下，将原本的两个插件合并为一个</a>——表面上是「路由-标准 UI 插件」，实则也是「连接器-后端插件」。</p>
 <p>至此，我们集中在这三五天里处理掉了「便秘」问题，撒花！🎉🎉🎉</p>
-<h2 id="踩坑经验"><a href="#踩坑经验" class="headerlink" title="踩坑经验"></a>踩坑经验</h2><p>本次是基于主项目版本 <a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer/tree/v1.4.0">1.4.0</a> 开发，官方文档、插件体系的不完善和自己较为别扭的心态令我踩了些坑，下面针对前端开发人员分享下本地调试的要点，以便少走弯路！</p>
+<h2 id="踩坑经验"><a href="#踩坑经验" class="headerlink" title="踩坑经验"></a>踩坑经验</h2><p>本次是基于主项目版本 <a target="_blank" rel="noopener" href="https://github.com/apache/incubator-answer/tree/v1.4.0">1.4.0</a> 开发，官方文档、插件体系的不完善以及自己较为别扭的心态令我踩了些坑，下面针对前端开发人员分享下本地调试的要点，以便少走弯路！</p>
 <p>首先，对像我一样介意的人再次强调下——<strong>只需额外安装 Go，数据库可用 macOS 自带的 SQLite！</strong></p>
 <p>以我们开发的插件为例，假设插件名为 <code>connector-wallet</code>——</p>
 <h3 id="后端环境"><a href="#后端环境" class="headerlink" title="后端环境"></a>后端环境</h3><p>确保在主项目的 <code>cmd/answer/main.go</code> 里引入了插件包，即使它当前并不存在：</p>
