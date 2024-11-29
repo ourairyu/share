@@ -196,7 +196,7 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>  answercmd <span class="hljs-string">&quot;github.com/apache/incubator-answer/cmd&quot;</span><br><br>  _ <span class="hljs-string">&quot;github.com/apache/incubator-answer-plugins/connector-wallet&quot;</span><br>)<br></code></pre></td></tr></table></figure>
 
 <p>无论是纯前端插件还是「表面上是前端插件」的插件，在调试时需将用模板生成的代码放到 <code>ui/src/plugins</code> 文件夹下，并在根文件夹创建 <code>go.work</code> 文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">go 1.22.0<br><br>toolchain go1.23.2<br><br>use (<br>    .<br>    ./ui/src/plugins/connector-wallet<br>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="code"><pre><code class="hljs text">go 1.22.0<br><br>toolchain go1.23.2<br><br>use (<br>    .<br>    ./ui/src/plugins/connector-wallet<br>)<br></code></pre></td></tr></table></figure>
 
 <p>执行 <code>make ui</code> 构建前端代码，再用 <code>go build -o answer ./cmd/answer/main.go</code> 编译后端代码，会生成 <code>answer</code> 文件，接下来的操作都用它。</p>
 <p>执行 <code>./answer init -C ./answer-data/</code> 初始化系统，需要在浏览器中访问 <code>http://localhost</code> 填写信息，其中数据库要选择 SQLite 且文件存放路径把 <code>/data</code> 替换成 <code>answer-data</code> 文件夹的绝对路径。</p>
