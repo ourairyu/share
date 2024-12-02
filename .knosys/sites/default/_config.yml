@@ -132,6 +132,9 @@ theme_config:
         url: https://ourai.ws/sponsor/
       - text: 合作
         url: https://yaol.in/cooperation/
+  analytics:
+    - provider: baidu
+      code: e6d6bb6702dbd74ffbc950a57ad9b6be
 
 ksio:
   defaults:
