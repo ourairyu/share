@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>日报 20240523 - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="日报 20240523">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+  
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement('script');
+  hm.src = '//hm.baidu.com/hm.js?e6d6bb6702dbd74ffbc950a57ad9b6be';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
+  
+
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">日报 20240523</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>早上起床后向着书房轻轻走去，没听到 MacBook Pro 的风扇狂转声，推开门也照样没听见，迫不及待地看向显示器——iCloud 云盘同步完毕，异常解除！🎉🎉🎉</p>
+<p>还好我没猴急地当天就重装系统，给了 MacBook Pro 和我自己最后一次机会，才能以损失最小的方式收场。</p>
+<p>即便如此，CPU、硬盘等硬件还是受到伤害了的，并且我的个人网站源码每次编译也都会占用大量 CPU 资源以及对磁盘进行频繁读写，这也很损伤硬件。</p>
+<p>虽说在编译策略上有很大优化空间，但这些事情所进行的场所最好不要在我自己的电脑上——利用 GitHub Actions 在云端编译势在必行了！</p>
+<p>我的个人网站的 SSG 是基于 Ruby 的 Jekyll，由于我不会也不想学，难以扩展功能且兼容性比较差，真的是苦 Ruby 久矣。</p>
+<p>但又因为我的个人网站早已变得十分复杂，想换掉 Jekyll 也没那么容易，就一直在拖；然而，现在已经不能拖了，我要着手改造了！</p>
+<p>我的个人网站源码仓库中实际包含了多个网站，因而要想利用 GitHub Actions 进行自动部署，最好是按站点拆分出多个代码仓库，否则每次拉取代码都要很久。</p>
+<p>我就从改造相对容易的开始分离，顺便把 SSG 换成基于 JS 的 Hexo，这样一来就会大大提高个人网站的可玩性。</p>
+<p>开头就碰壁，新项目无法从远程克隆到本地，试了好几次都提示 <code>clone github RPC failed; curl 92 HTTP/2 stream 5 was not closed cleanly: CANCEL (err 8)</code>。</p>
+<p>在终端中 <code>ping github.com</code> 没反应，我知道是域名解析的问题了，后来发现原来之前给 <a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/ihosts-etc-hosts-editor/id1102004240">iHosts</a> 配置的 <a target="_blank" rel="noopener" href="https://forum.manjaro.org/t/http-2-stream-1-was-not-closed-cleanly-before-end-of-the-underlying-stream/96725/8">GitHub 相关规则</a>没启用。</p>
+<p>在新项目中 <code>pnpm i</code> 时 <code>node-sass</code> 在 binding 过程中报错，找不到 <code>python</code> 或 <code>python2</code> 命令——macOS Sonoma 中移除了 2 而使用 3，<a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-2718/">到官网下载文件</a>安装下就好了。</p>
+<p>再次 <code>pnpm i</code>，<code>node-gyp</code> 又提示什么 <code>gyp: No Xcode or CLT version detected!</code>，这也算是我常见的问题了，打开 Xcode 安装下组件什么的就解决了。</p>
+<p>我以为是这样，然而并没，安装时报了个没看懂的错误；终端执行 <code>xcode-select --install</code>，又提示 <code>Xcode-select: error: command line tools are already installed, use “Software Update” to install updates</code>。</p>
+<p>最后，按《<a target="_blank" rel="noopener" href="https://allanphilipbarku.medium.com/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d#766b">gyp: No Xcode or CLT version detected macOS Catalina | Anansewaa</a>》中所说的执行 <code>sudo xcode-select --reset</code> 后可以了。</p>
+<p>我是先分离的「<a target="_blank" rel="noopener" href="https://s.ourai.ws/">共享中心</a>」网站源码，放在 <a target="_blank" rel="noopener" href="https://github.com/ourairyu/share"><code>https://github.com/ourairyu/share</code></a> 中，以为一个下午就能搞定，实际证明我想简单了……</p>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2025 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
