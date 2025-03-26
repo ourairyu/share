@@ -185,7 +185,9 @@ var _hmt = _hmt || [];
 <p>第一种堆叠方式就是很常见的 GUI 渲染方式，也是块编辑器中的布局方式；第二种则多用于画布类可以自由排列组合的场景。</p>
 <p>这两种方式并不是非此即彼，它们经常一起使用，只不过是以其中一种为主。</p>
 <p>说了这么多，打通 Petals 与块编辑器的关键点就在于——</p>
-<p>用「block」和「text」作为基本单元构建起 Petals 这个控件体系，并且它们的行为是可被注入的，为被外部「操控」留下口子。</p>
+<p>用「block」和「text」作为基本单元构建起 Petals 这个控件体系，并且它们的行为是可被注入的，为被外部「操控」留下口子：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">IInjectableElement</span> &#123;&#125;<br><br><span class="hljs-comment">// Block-level element</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">IBlock</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">InjectableElement</span> &#123;&#125;<br><br><span class="hljs-comment">// Inline-level element</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">IText</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">InjectableElement</span> &#123;&#125;<br><br><span class="hljs-keyword">function</span> createInjectableElement&lt;E <span class="hljs-keyword">extends</span> <span class="hljs-title class_">IInjectableElement</span> = <span class="hljs-title class_">IInjectableElement</span>&gt;(): E &#123;&#125;<br></code></pre></td></tr></table></figure>
+
 <p>没被注入时，默认行为就跟常规控件一样；而被注入后，控件就成了提线木偶被外部库或框架所控制，比如变成了块编辑器中的「块」。</p>
 
 </div>
