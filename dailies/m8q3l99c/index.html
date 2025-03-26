@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <title>日报 20250326：控件即是块编辑器的「块」 - 欧雷共享的内容</title>
+
+
+  <meta property="og:title" content="日报 20250326：控件即是块编辑器的「块」">
+
+
+
+
+  
+    
+  
+
+
+  <meta name="keywords" content="欧雷,欧雷流">
+
+
+<!-- 页面渲染兼容性 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- 订阅 -->
+
+<meta name="theme-color" content="#0871ab">
+<link rel="shortcut icon" href="/images/ksio/favicon.ico">
+
+
+    
+<link rel="stylesheet" href="/stylesheets/global.css">
+
+    
+<link rel="stylesheet" href="/stylesheets/ksio/vendors/share.css">
+
+    
+  
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement('script');
+  hm.src = '//hm.baidu.com/hm.js?e6d6bb6702dbd74ffbc950a57ad9b6be';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
+  
+
+
+    
+<script src="/javascripts/ksio/vendors/jquery-1.11.3.min.js"></script>
+
+    
+<script src="/javascripts/ksio/vendors/bootstrap.min.js"></script>
+
+  </head>
+  
+  
+  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <header class="Page-header">
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        
+          <button class="navbar-toggle collapsed" type="button" data-target=".Page-navs" data-toggle="collapse">
+            <span class="sr-only">Toggle navs</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        
+          <div class="navbar-brand">
+
+
+  <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&utm_medium=brand" target="_blank" rel="external nofollow">Ourai.WS</a><a href="/">共享</a>
+
+</div>
+        
+      </div>
+      <!-- Nav menus -->
+      <nav class="Page-navs navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+  
+    <li><a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">主站</a>
+</li>
+  
+
+  
+    <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+  
+    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+</li>
+  
+
+  
+    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+</li>
+  
+
+  
+    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+</li>
+  
+
+</ul>
+    </li>
+  
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="Page-content">
+  
+
+  <!-- 内容主体 -->
+  <div class="container">
+    <article class="Page-main Article">
+      <header class="Article-header">
+        
+  
+    <h1 class="Article-title">日报 20250326：控件即是块编辑器的「块」</h1>
+  
+  
+
+
+      </header>
+      <div class="Article-content col-md-9"><p>近期时不时地会想「<a target="_blank" rel="noopener" href="https://ntks.ourai.ws/">反混沌前端工程</a>」当前比较重要且优先的两块事情：控件（UI 组件）体系 <a target="_blank" rel="noopener" href="https://petals-ui.github.io/">Petals</a> 和通用块编辑器。</p>
+<p>大部分人不会认为这两者之间有什么联系，然而在我眼中关系可大了去了——它们的「本质」可以近似看作是一个东西。</p>
+<p>控件可以认为是当下 GUI 开发的重要基础设施和基本单元，而在块编辑器体系中则是「块」，理论上「块」就是控件，是被注入特殊状态的控件——好比一个被施了法术的人成为提线木偶一般。</p>
+<p>那么，直觉告诉我 Petals 可以跟块编辑器打通，将更为抽象的「块」作为基础设施；这里的「块」不是块编辑器中的「块」，还是用「block」做区分吧。</p>
+<p>回顾并总结这十多年的 GUI 开发经验来看，GUI 中最基本的元素就是占据整行的「block」和与文本类内容实际宽度相匹配的区域这两种，后者我就叫它「text」吧。</p>
+<p>在网页开发中，前者叫「块级元素」，后者则叫「内联元素」或「行内元素」。</p>
+<p>假设有分别代表平面中水平和垂直方向的 x、y 轴，再加上垂直于它们所构成平面（屏幕）的 z 轴，在元素的堆叠方式上也有两种：</p>
+<ol>
+<li>沿 y 轴从上往下堆叠，这时「block」如上面所说默认占据整行，与「block」重叠的元素可以视为是在其内部，就像中间挖了个槽；</li>
+<li>沿 z 轴自底向顶堆叠，这时「block」与「text」没太大分别，都是差不多的矩形，与它们重叠的元素就是像摞衣服一样一层压着一层。</li>
+</ol>
+<p>第一种堆叠方式就是很常见的 GUI 渲染方式，也是块编辑器中的布局方式；第二种则多用于画布类可以自由排列组合的场景。</p>
+<p>这两种方式并不是非此即彼，它们经常一起使用，只不过是以其中一种为主。</p>
+<p>说了这么多，打通 Petals 与块编辑器的关键点就在于——</p>
+<p>用「block」和「text」作为基本单元构建起 Petals 这个控件体系，并且它们的行为是可被注入的，为被外部「操控」留下口子。</p>
+<p>没被注入时，默认行为就跟常规控件一样；而被注入后，控件就成了提线木偶被外部库或框架所控制，比如变成了块编辑器中的「块」。</p>
+
+</div>
+      <footer class="Article-footer col-md-3">
+  
+  <div class="Widget Widget--share">
+    <div class="Widget-body">
+      <p>分享到<i class="fa fa-share-alt"></i></p>
+      <div class="social-share" data-sites="wechat,weibo,twitter"></div>
+    </div>
+  </div>
+
+
+  <section class="Widget Widget--toc">
+  <div class="Widget-header">
+    <h2 class="Widget-title">目录</h2>
+  </div>
+  <div class="Widget-body"></div>
+</section>
+
+
+</footer>
+      
+      
+    </article>
+    
+
+  </div>
+</main>
+<footer class="Page-footer Footer">
+  <div class="container">
+    
+    <div class="Footer-description">
+      
+        <!-- Important links -->
+        <nav class="Footer-navs">
+          <ul><li><a href="https://meta.ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>@</span></a>
+</li><li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>赞助</span></a>
+</li><li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow"><span>合作</span></a>
+</li></ul>
+        </nav>
+      
+      
+        <!-- Copyright -->
+        <div class="Footer-copyright">
+          <p>
+
+&copy; 2022-2025 <a href="https://ourai.ws/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷流</a> 版权所有
+
+</p>
+          <p>本站主题 <a href="https://ourai.github.io/lime/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">Lime</a> 由 <a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-footer" target="_blank" rel="external nofollow">欧雷</a> 提供</p>
+          
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+    <script>$('.Article-content > table').addClass('table table-bordered')</script>
+    
+<script src="/javascripts/ksio/vendors/share.min.js"></script>
+
+<script src="/javascripts/ksio/components/page.js"></script>
+
+<script src="/javascripts/ksio/components/toc.js"></script>
+
+  </body>
+</html>
+
