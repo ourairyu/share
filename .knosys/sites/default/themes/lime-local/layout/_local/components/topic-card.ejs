@@ -8,7 +8,7 @@
 <% } %>
 <div class="Card Person">
   <a class="Card-link Person-link" href="<%= _inc_repo_url %>"<% if (external) { %> target="_blank" rel="nofollow"<% } %>>
-    <% const repo_banner = _inc_repo.banner ? _inc_repo.banner.url : 'local/images/knowledge-base.jpg' %>
+    <% const repo_banner = _inc_repo.banner ? _inc_repo.banner.url : 'images/local/banners/knowledge-base.jpg' %>
     <div class="Person-header" style="background-image: url('<%= url_for(repo_banner) %>');">
       <div class="Person-brief">
         <h4 class="Person-name" data-toc-skip="true"><%= _inc_repo.title %></h4>

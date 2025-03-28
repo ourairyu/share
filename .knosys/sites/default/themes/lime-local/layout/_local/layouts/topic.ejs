@@ -2,7 +2,7 @@
 <main class="Page-content">
   <%- partial('_ksio/slots/banner') %>
   <% if (!page.banner) { %>
-    <% const bannerUrl = 'local/images/knowledge-base.jpg' %>
+    <% const bannerUrl = 'images/local/banners/knowledge-base.jpg' %>
     <div class="Page-banner hidden-xs" style="background-image: url('<%= url_for(bannerUrl) %>');">
       <figure class="sr-only">
         <%- image_tag(bannerUrl, { alt: 'Knowledge Base' }) %>

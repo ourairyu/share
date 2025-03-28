@@ -4,6 +4,9 @@
   "description": "Shared documents from personal knowledge base",
   "main": "index.js",
   "private": true,
+  "engines": {
+    "node": ">=14.15.3"
+  },
   "hexo": {
     "version": "6.3.0"
   },
