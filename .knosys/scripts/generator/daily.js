@@ -13,7 +13,6 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
   const [category, collection, ...args] = item.source.split('/');
 
   note.title = `日报 ${args[0]}${args[1]}${args[2]}${note.title ? '：' + note.title : ''}`;
-  console.log('note.title:', args);
 
   cache.content = note.content;
 
@@ -30,7 +29,7 @@ module.exports = {
       const yearly = {};
 
       sequence.forEach(id => {
-        const year = id.split('-').shift();
+        const year = items[id].date.substr(0, 4);
 
         if (!yearly[year]) {
           yearly[year] = [];

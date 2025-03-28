@@ -112,8 +112,6 @@ theme_config:
       start: 2022
   header:
     navs:
-      - text: 主站
-        url: https://ourai.ws/
       - text: 关于
         children:
           - text: 站长

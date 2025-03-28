@@ -1,0 +1,10 @@
+<% const dailyData = site.data['knosys/dailies'] %>
+<% dailyData.yearly.slice().reverse().forEach(yearly => { %>
+  <h2 title="共 <%= yearly.ids.length %> 篇"><%= yearly.year %></h2>
+  <ul>
+    <% yearly.ids.slice().reverse().forEach(id => { %>
+      <% const note = dailyData.items[id] %>
+      <li><a href="/dailies/<%= note.slug || note.id %>/"<% if (note.description) { %> title="<%= note.description %>"<% } %> target="_blank"><%= note.title %></a></li>
+    <% }) %>
+  </ul>
+<% }) %>
