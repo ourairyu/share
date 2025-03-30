@@ -8,7 +8,7 @@ function resolveItemData(sourceRootPath, id, item, _, cache) {
   const content = readReadMe(sourceDir)
   .replace(/(?:\<img (?:.+)?)src=\"([^\"]+)\"/g, (match, srcPath) => match.replace(srcPath, `/knosys/${collectionName}/${id}/${srcPath}`))
   .replace(/!\[([^\[\]]+)?\]\(([^\(\)]+)\)/g, (match, _, srcPath) => match.replace(srcPath, `/knosys/${collectionName}/${id}/${srcPath}`))
-    .replace(/\n## 任务\n/g, '\n## 任务\n{:#tasks}\n').replace(/\- \[ \]/g, `- <input type="checkbox" disabled>`).replace(/\- \[X\]/ig, `- <input type="checkbox" disabled checked>`);
+    .replace(/\n## 任务\n/g, '\n## 任务\n').replace(/\- \[ \]/g, `- <input type="checkbox" disabled>`).replace(/\- \[X\]/ig, `- <input type="checkbox" disabled checked>`);
 
   const project = { ...readMetadata(sourceDir), id };
   const sharedMetadata = readData(`${sourceDir}/.meta/shared.yml`) || {};
