@@ -2,7 +2,7 @@ const { resolve: resolvePath } = require('path');
 const { existsSync } = require('fs');
 
 const { resolveRootPath, scanAndSortByAsc, ensureDirExists, getLocalDataRoot, getLocalDocRoot } = require('../helper');
-const { createDailyGenerator, createWeeklyGenerator, createNoteGenerator, createProjectGenerator, createRepoGenerator, generateBookmarks } = require('../generator');
+const { createDailyGenerator, createWeeklyGenerator, createNoteGenerator, createProjectGenerator, createDocGenerator, createRepoGenerator, generateBookmarks } = require('../generator');
 
 module.exports = {
   execute: dataSource => {
@@ -22,6 +22,7 @@ module.exports = {
       weeklies: createWeeklyGenerator(sourceRootPath, sharedRootPath),
       notes: createNoteGenerator(sourceRootPath, sharedRootPath),
       projects: createProjectGenerator(sourceRootPath, sharedRootPath),
+      docs: createDocGenerator(sourceRootPath, sharedRootPath),
       repos: createRepoGenerator(sourceRootPath, sharedRootPath),
     };
 
