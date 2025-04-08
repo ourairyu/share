@@ -27,7 +27,7 @@ function generateBookmarks(sourceRootPath) {
     data.items[slug] = list;
 
     const frontMatter = [`title: ${list.title}`, `description: ${list.description || ''}`];
-    const ext = ['jpg', 'png'].filter(ext => existsSync(`${metadataDir}/banner.${ext}`))[0];
+    const ext = ['jpg', 'jpeg', 'png'].filter(ext => existsSync(`${metadataDir}/banner.${ext}`))[0];
 
     if (ext) {
       const imageDir = `${BOOKMARK_ROOT}/${slug}`;
