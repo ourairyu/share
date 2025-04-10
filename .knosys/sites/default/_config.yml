@@ -5,15 +5,15 @@
 # Site
 title: 欧雷共享的内容
 subtitle:
-description:
-keywords: 欧雷,欧雷流
+description: 这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https://ourai.ws）哟！
+keywords: 欧雷,欧雷流,共享中心,个人知识库,知识库,knowledge,knowledge base,日报,daily,周报,weekly,项目,project,笔记,note,分享,知识管理,knowledge management
 author: Ourai L.
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://example.io
+url: https://s.ourai.ws
 permalink: posts/:title/
 permalink_defaults:
 pretty_urls:

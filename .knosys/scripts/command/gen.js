@@ -6,7 +6,7 @@ const { createDailyGenerator, createWeeklyGenerator, createNoteGenerator, create
 
 module.exports = {
   execute: dataSource => {
-    const srcPath = resolvePath(resolveRootPath(), dataSource);
+    const srcPath = resolvePath(resolveRootPath(), dataSource || process.env.KSIO_DS);
 
     if (!existsSync(srcPath)) {
       return;
