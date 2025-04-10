@@ -31,6 +31,9 @@
 
 
 
+  
+
+
 
 
 
@@ -38,7 +41,17 @@
   <title>网站主题 Lime 抽取并开源 - 欧雷共享的内容</title>
 
 
+<meta name="twitter:card" content="summary_large_image">
+
+
   <meta property="og:title" content="网站主题 Lime 抽取并开源">
+  <meta name="twitter:title" content="网站主题 Lime 抽取并开源">
+
+
+
+  <meta name="description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
+  <meta property="og:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
+  <meta name="twitter:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
 
 
 
@@ -48,7 +61,35 @@
   
 
 
-  <meta name="keywords" content="欧雷,欧雷流">
+  <meta name="keywords" content="欧雷,欧雷流,共享中心,个人知识库,知识库,knowledge,knowledge base,日报,daily,周报,weekly,项目,project,笔记,note,分享,知识管理,knowledge management">
+
+
+
+  
+  
+    
+  
+  
+  <link rel="canonical" href="https://s.ourai.ws/projects/lfhxk50o/index">
+  <meta property="og:url" content="https://s.ourai.ws/projects/lfhxk50o/index">
+
+
+
+  <meta property="og:site_name" content="欧雷共享的内容">
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "WebSite",
+      "name" : "欧雷共享的内容",
+      "url" : "https://s.ourai.ws"
+    }
+  </script>
+
+
+
+
+
+
 
 
 <!-- 页面渲染兼容性 -->
@@ -124,22 +165,39 @@ var _hmt = _hmt || [];
         <ul class="nav navbar-nav navbar-right">
           
   
+  
+  
     <li class="dropdown">
       <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">关于 <span class="caret"></span></a>
       <ul class="dropdown-menu">
   
-    <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
+  
+  
+    
+    
+      <li><a href="https://linxoid.com/ourai/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">站长</a>
 </li>
+    
   
 
   
-    <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
+  
+  
+    
+    
+      <li><a href="https://ourai.ws/sponsor/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">赞助</a>
 </li>
+    
   
 
   
-    <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
+  
+  
+    
+    
+      <li><a href="https://yaol.in/cooperation/?utm_source=https://s.ourai.ws&amp;utm_medium=common-header" target="_blank" rel="external nofollow">合作</a>
 </li>
+    
   
 
 </ul>
@@ -602,6 +660,13 @@ var _hmt = _hmt || [];
 <figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss"><span class="hljs-comment">// `stylesheets/pages/post.scss`</span><br><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;../ksio/pages/post&quot;</span>;<br><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;../ksio/syntax-highlighting&quot;</span>;<br></code></pre></td></tr></table></figure>
 
 <p>在 Hexo 中则通过页面配置 <code>ksio_asset_css</code> 添加。</p>
+<h3 id="社媒优化"><a href="#社媒优化" class="headerlink" title="社媒优化"></a>社媒优化</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://ogp.me/">Open Graph protocol</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.x.com/en/docs/x-for-websites/cards/overview/markup">X Cards markup</a><ul>
+<li><a target="_blank" rel="noopener" href="https://cards-dev.x.com/validator">Card Validator</a></li>
+</ul>
+</li>
+</ul>
 <h3 id="发布版本"><a href="#发布版本" class="headerlink" title="发布版本"></a>发布版本</h3><p>新建 <code>release</code> 分支专门用于存放发版文件，根据使用场景将相关文件打包成压缩包后在<a target="_blank" rel="noopener" href="https://github.com/ourai/lime/releases">发版页面</a>提供下载。</p>
 <h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><h4 id="独立使用"><a href="#独立使用" class="headerlink" title="独立使用"></a>独立使用</h4><h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><h3 id="处理中-1"><a href="#处理中-1" class="headerlink" title="处理中 (1)"></a>处理中 (1)</h3><ul>
 <li>独立于静态网站生成器使用的样式与交互</li>

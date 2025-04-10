@@ -38,14 +38,14 @@
 
 
 
-  <title>日报 20250315：建设「人生集团公司」 - 欧雷共享的内容</title>
+  <title>日报 20250410：项目「网站主题 Lime 抽取并开源」进展同步第 1 期 - 欧雷共享的内容</title>
 
 
 <meta name="twitter:card" content="summary_large_image">
 
 
-  <meta property="og:title" content="日报 20250315：建设「人生集团公司」">
-  <meta name="twitter:title" content="日报 20250315：建设「人生集团公司」">
+  <meta property="og:title" content="日报 20250410：项目「网站主题 Lime 抽取并开源」进展同步第 1 期">
+  <meta name="twitter:title" content="日报 20250410：项目「网站主题 Lime 抽取并开源」进展同步第 1 期">
 
 
 
@@ -70,8 +70,8 @@
     
   
   
-  <link rel="canonical" href="https://s.ourai.ws/dailies/m8admnx4/index">
-  <meta property="og:url" content="https://s.ourai.ws/dailies/m8admnx4/index">
+  <link rel="canonical" href="https://s.ourai.ws/dailies/m9bi7sqo/index">
+  <meta property="og:url" content="https://s.ourai.ws/dailies/m9bi7sqo/index">
 
 
 
@@ -218,40 +218,38 @@ var _hmt = _hmt || [];
       <header class="Article-header">
         
   
-    <h1 class="Article-title">日报 20250315：建设「人生集团公司」</h1>
+    <h1 class="Article-title">日报 20250410：项目「网站主题 Lime 抽取并开源」进展同步第 1 期</h1>
   
   
 
 
       </header>
-      <div class="Article-content col-md-9"><p>人生进程都走完一半左右了，才在本月初立下「要在 45 周岁退休」的 flag，开始着急忙慌地倒推制定「五年规划」和「每年计划」——就像老板的紧急需求，来得那么仓促。</p>
-<p>由于牵扯的实在太多，想给他人解释清楚很是费劲，就连我自己有时也搞不清其中错综复杂的关系……于是我就借着这个机会倒逼自己去理清楚，并且得尽可能浅显易懂地说明白。</p>
-<p>今天主要就做了两件事——</p>
-<p>其一是把目前「人生集团公司」的大致体系结构理了出来：</p>
+      <div class="Article-content col-md-9"><p>从昨天起，终于正式进入「<a target="_blank" rel="noopener" href="https://indie.ourai.ws/">独立开发实验</a>」了——重新拾起《<a href="https://s.ourai.ws/projects/lfhxk50o/">网站主题 Lime 抽取并开源</a>》这个项目。</p>
+<h2 id="项目进展"><a href="#项目进展" class="headerlink" title="项目进展"></a>项目进展</h2><p>这两天主要做了三件事——</p>
+<h3 id="导航下拉菜单支持分组"><a href="#导航下拉菜单支持分组" class="headerlink" title="导航下拉菜单支持分组"></a>导航下拉菜单支持分组</h3><p>以在 Hexo 中使用为例，网站页头导航通过以下配置项生成：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">theme_config:</span><br>  <span class="hljs-string">...</span><br>  <span class="hljs-attr">header:</span><br>    <span class="hljs-attr">navs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">计划</span><br>        <span class="hljs-attr">children:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">OKR</span><br>            <span class="hljs-attr">url:</span> <span class="hljs-string">/okrs/</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">项目</span><br>            <span class="hljs-attr">url:</span> <span class="hljs-string">/projects/</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">任务</span><br>            <span class="hljs-attr">url:</span> <span class="hljs-string">https://a66c4lvoi8.feishu.cn/wiki/XB6HwCe4FixCfekDlJwcH67wnpd?table=tblwYH0jaRmRZGvb&amp;view=vewJmNsU1d</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">专题</span><br>        <span class="hljs-attr">children:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">数字游牧</span><br>            <span class="hljs-attr">url:</span> <span class="hljs-string">/topics/digital-nomadism/</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">独立开发</span><br>            <span class="hljs-attr">url:</span> <span class="hljs-string">https://indie.ourai.ws</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">text:</span> <span class="hljs-string">关于</span><br>        <span class="hljs-attr">url:</span> <span class="hljs-string">/about/</span><br></code></pre></td></tr></table></figure>
+
+<p>原本 <a target="_blank" rel="noopener" href="https://lime-theme.github.io/zh/apis/site-config/#header"><code>header.navs</code></a> 的数组深度只支持两层，第二层是通过下拉菜单的形式展现。</p>
+<p>该主题中的下拉菜单是通过 <a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/3.3/components/#dropdowns">Bootstrap v3.3.x</a> 实现，不支持多级下拉菜单，因而用 <a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/3.3/components/#dropdowns-headers">dropdown header</a> 进行视觉上的分组切割，用以支持第三层数组深度：</p>
 <figure>
-  <img src="/knosys/dailies/m8admnx4/structure-of-life-group.png" alt="「人生集团公司」体系结构">
-  <figcaption>「人生集团公司」体系结构</figcaption>
+  <img src="/knosys/dailies/m9bi7sqo/header-navs-with-depth-3.png" alt="支持 3 层的页头导航">
+  <figcaption>支持 3 层的页头导航</figcaption>
 </figure>
 
-<p>显然这省去了很多细节，即便如此，依然一股复杂、庞大的气息扑面而来……</p>
-<p>所以说，要想做成图中包含的事情，必须得当成是终生事业以长期主义的心态去经营与推进，而非急功近利。</p>
-<p>诚然，面对如此的庞然大物必定第一时间会产生退缩心理，但立志成为人生游戏玩家的我，立即就稳住了心态——抓大放小，步步为营，稳扎稳打。</p>
-<p>其二则是继续梳理下个季度要做哪些事。</p>
-<p>正如上图中所示，我想做的事牵扯太多，相互之间纠缠在一起，几乎没有什么事是完全孤立的，因此在盘算时得结合规划、计划及这个季度做的事整体去看。</p>
-<p>针对我的情况，我觉得白板是个很好用的工具：</p>
-<ol>
-<li>用一种图形列出来几个类别&#x2F;领域，把它们分散开放着；</li>
-<li>用另外一种图形列出一些事项，集中放在一堆；</li>
-<li>看事项是属于哪个类别&#x2F;领域的，挪到相应图形附近；</li>
-<li>用箭头把类别&#x2F;领域和事项连接起来，事项和事项之间也连接，简单表示一下它们之间的关系。</li>
-</ol>
-<p>按照上述步骤，大体理出了一些事情：</p>
+<p>不过严格来说，这种视觉呈现形式并不能完全匹配「子菜单」的语义。</p>
+<h3 id="优化社交媒体分享展示"><a href="#优化社交媒体分享展示" class="headerlink" title="优化社交媒体分享展示"></a>优化社交媒体分享展示</h3><p>之前 Hexo 版的主题在分享到 X 之后不会显示成卡片，现增加了几个 <a target="_blank" rel="noopener" href="https://developer.x.com/en/docs/x-for-websites/cards/overview/markup">X Cards</a> 和 <a target="_blank" rel="noopener" href="https://ogp.me/">Open Graph</a> 协议的 <code>&lt;meta&gt;</code> 标签，实现了分享卡片：</p>
 <figure>
-  <img src="/knosys/dailies/m8admnx4/q2-schedule.png" alt="Q2 大概安排">
-  <figcaption>Q2 大概安排</figcaption>
+  <img src="/knosys/dailies/m9bi7sqo/x-cards.png" alt="分享到 X 后的卡片">
+  <figcaption>分享到 X 后的卡片</figcaption>
 </figure>
 
-<p>里面有的事情还不是很确定，毕竟这个季度还剩两周时间，没准会完成一部分，无需「过度设计」而徒费心力。</p>
+<p>如此一来，大大提升了分享的传播体验！</p>
+<p>在成功搞掂之前还是遇到了点小挫折的——明明 <code>&lt;meta&gt;</code> 标签已经加上了，咋还没显示卡片呢？！</p>
+<p>在我向 DeepSeek 求助时，知道了一个官方出的验证有效性的工具 <a target="_blank" rel="noopener" href="https://cards-dev.x.com/validator">Card Validator</a>，将链接放进去检测后得知是因我在 <code>robots.txt</code> 中禁止爬取网站的某些资源导致的。</p>
+<h3 id="Hexo-网站模板仓库"><a href="#Hexo-网站模板仓库" class="headerlink" title="Hexo 网站模板仓库"></a>Hexo 网站模板仓库</h3><p>我在使用 Lime 主题时都是配合着 <a target="_blank" rel="noopener" href="https://knosysio.github.io/">KnoSys</a> 一起，这样更有助于内容本身与 SSG 相分离。</p>
+<p>由于我总是有新的网站要弄，通过手动复制那些通用代码的方式有点蠢，就先利用 GitHub 的能力弄了个 Hexo 网站的模板仓库 <a target="_blank" rel="noopener" href="https://github.com/lime-theme/lime-site-template-hexo">lime-site-template-hexo</a>。</p>
+<p>不过这还不算最优解，日后可以搞个 CLI 工具进一步处理。</p>
+<h2 id="下一步计划"><a href="#下一步计划" class="headerlink" title="下一步计划"></a>下一步计划</h2><p>优先完善 SEO、语义化表达相关 HTML 标签的支持，以及提高网站代码复用体验。</p>
 
 </div>
       <footer class="Article-footer col-md-3">
