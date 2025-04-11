@@ -49,9 +49,9 @@
 
 
 
-  <meta name="description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta property="og:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta name="twitter:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
+  <meta name="description" content="做了 3 件事：1. 导航下拉菜单支持分组；2. 优化社交媒体分享展示；3. Hexo 网站模板仓库。">
+  <meta property="og:description" content="做了 3 件事：1. 导航下拉菜单支持分组；2. 优化社交媒体分享展示；3. Hexo 网站模板仓库。">
+  <meta name="twitter:description" content="做了 3 件事：1. 导航下拉菜单支持分组；2. 优化社交媒体分享展示；3. Hexo 网站模板仓库。">
 
 
 
@@ -88,8 +88,21 @@
 
 
 
+  
 
 
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  <meta property="og:image" content="https://s.ourai.ws/images/local/banners/knowledge-base.jpg">
+  <meta name="twitter:image" content="https://s.ourai.ws/images/local/banners/knowledge-base.jpg">
 
 
 <!-- 页面渲染兼容性 -->
@@ -134,7 +147,9 @@ var _hmt = _hmt || [];
   </head>
   
   
-  <body class="Page" itemscope itemtype="http://schema.org/WebPage">
+    
+  
+  <body class="Page has-headerImage" itemscope itemtype="http://schema.org/WebPage">
     
 
   <header class="Page-header">
@@ -211,6 +226,14 @@ var _hmt = _hmt || [];
 
 <main class="Page-content">
   
+  <!-- 页面横幅 -->
+  <div class="Page-banner hidden-xs" style="background-image: url('/images/local/banners/knowledge-base.jpg');">
+    <figure class="sr-only">
+      <img src="/images/local/banners/knowledge-base.jpg" alt="">
+      <figcaption></figcaption>
+    </figure>
+  </div>
+
 
   <!-- 内容主体 -->
   <div class="container">
