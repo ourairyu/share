@@ -12,6 +12,7 @@ const {
 } = require('../helper');
 
 const METADATA_IMAGE_KEYS = ['banner', 'avatar', 'thumbnail', 'cover', 'logo'];
+const defaultBannerPath = 'images/local/banners/knowledge-base.jpg';
 
 function getItemSourceDir(sourceRootPath, metadata) {
   return `${sourceRootPath}/${metadata.source}`;
@@ -55,8 +56,12 @@ function generateMarkdown(collectionName, id, item, _, cache) {
 
   const itemDirPath = `${getCollectionRoot(collectionName)}/${id}`;
   const data = Object.keys(item)
-    .filter(key => ['title', 'date', 'tags', 'categories'].includes(key) && item[key])
+    .filter(key => ['title', 'description', 'date', 'tags', 'categories', 'image', 'banner'].includes(key) && item[key])
     .reduce((acc, key) => ({ ...acc, [key]: item[key] }), {});
+
+  if (!data.image && !data.banner) {
+    data.banner = { url: defaultBannerPath };
+  }
 
   data.permalink = `/${collectionName}/${id}/`;
 
