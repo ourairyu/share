@@ -49,9 +49,9 @@
 
 
 
-  <meta name="description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta property="og:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta name="twitter:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
+  <meta name="description" content="作为 AdventureX 2025 参赛作品，完善 KnoSys GUI 应用以打通本地个人知识库到线上个人网站间的壁垒！">
+  <meta property="og:description" content="作为 AdventureX 2025 参赛作品，完善 KnoSys GUI 应用以打通本地个人知识库到线上个人网站间的壁垒！">
+  <meta name="twitter:description" content="作为 AdventureX 2025 参赛作品，完善 KnoSys GUI 应用以打通本地个人知识库到线上个人网站间的壁垒！">
 
 
 
@@ -279,17 +279,24 @@ var _hmt = _hmt || [];
 
 <p>这次项目所要开发的，是在既有 <a target="_blank" rel="noopener" href="https://github.com/knosysio/knosys">KnoSys GUI 应用</a>和 <a target="_blank" rel="noopener" href="https://github.com/ourai/selfverse">Selfverse</a> 的成果上完善出介于「个人与家庭管理系统」和「个人网站&#x2F;社区基础设施」之间的东西，有如下关键特性：</p>
 <ul>
-<li>隐藏文件、Git、IDE 等概念，尽量纯 GUI 操作，让不太懂电脑的人也能无障碍使用；</li>
+<li>屏蔽文件、Git、IDE 等概念，尽量纯 GUI 操作，让不太懂电脑的人也能无障碍使用；</li>
 <li>自动化提交文件变更；</li>
 <li>一键将本地知识库内容部署发布到在线网站。</li>
 </ul>
 <p>本项目的技术架构大体为：</p>
 <ul>
-<li>本地 GUI 应用——<a target="_blank" rel="noopener" href="https://remix.run/">Remix</a>、<a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a>、<a target="_blank" rel="noopener" href="https://www.heroui.com/">HeroUI</a>（原名 NextUI）、Node.js；</li>
+<li>本地 GUI 应用——<a target="_blank" rel="noopener" href="https://remix.run/">Remix</a>、<a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a>、<a target="_blank" rel="noopener" href="https://www.heroui.com/">HeroUI</a>（原名 NextUI）、<a target="_blank" rel="noopener" href="https://tiptap.dev/">Tiptap</a>、Node.js；</li>
 <li>静态网站生成器——<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 或 <a target="_blank" rel="noopener" href="https://astro.build/">Astro</a>；</li>
 <li>本地文件操作——基于 KnoSys 的 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@knosys/sdk">SDK</a> 与 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ksio">CLI</a>；</li>
 <li>文件自动化——结合 Git 与 GitHub 可编程基建。</li>
 </ul>
+<p>鉴于时间原因，目前在下列方面可能需要有人帮忙：</p>
+<ul>
+<li>基于 Tiptap 封装的块编辑器，以 Markdown 文本作为输入与输出；</li>
+<li>高效进行文件及其内容的加载与搜索等。</li>
+</ul>
+<p>感兴趣者可加微信 <code>fxxkol</code> 并备注「ADVX 2025 共建」。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>冒着🧠被烧掉🤯的风险，紧急思考编写中……🫡</p>
 
 </div>
       <footer class="Article-footer col-md-3">
