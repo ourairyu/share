@@ -264,7 +264,32 @@ var _hmt = _hmt || [];
 
 <p>关于 Selfverse 的更多说明请见<a target="_blank" rel="noopener" href="https://a66c4lvoi8.feishu.cn/docx/YnrZduCd7odSSXxww0rcuWJZnGd">项目介绍</a>和<a target="_blank" rel="noopener" href="https://a66c4lvoi8.feishu.cn/slides/GW23sHBd2lAJVSdJqVlcd9Jan7f">演示文稿</a>。</p>
 <p>当时因为一些原因，无论是 KnoSys GUI 应用还是 Selfverse，在有了一点进展后都被搁置而没有继续开发，实属遗憾……</p>
-<p>恰逢最近决定 all in 个人与家庭数智化领域，且有幸成为 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/EMyJmtd6JGhGs86je_d9_Q">AdventureX 2025</a> 的参赛者，打算将它们捡起来整合一下作为参赛项目，也是为自己接下来的<a target="_blank" rel="noopener" href="https://indie.ourai.ws/">独立开发</a>做准备！</p>
+<p>恰逢最近决定 all in <a target="_blank" rel="noopener" href="https://ourai.ws/projects/digital-life/">个人与家庭数智化</a>领域，且有幸成为 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/EMyJmtd6JGhGs86je_d9_Q">AdventureX 2025</a> 的参赛者，打算将它们捡起来整合一下作为参赛项目，也是为自己接下来的<a target="_blank" rel="noopener" href="https://indie.ourai.ws/">独立开发</a>做准备！</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>在我探索个人与家庭数智化领域的初期，主要去做以下 3 个东西：</p>
+<ol>
+<li>个人与家庭管理系统（先 PC 端后移动端）；</li>
+<li>个人网站&#x2F;社区基础设施；</li>
+<li>去中心化身份与内容节点服务器。</li>
+</ol>
+<p>其中，前两者与 QiiDB、KnoSys 相关，后两者与 <a target="_blank" rel="noopener" href="https://linxoid.com/">LinXoid</a> 有关，它们之间的关系大致如下图所示：</p>
+<figure>
+  <img src="/knosys/projects/mcpx50nk/elements-of-my-planning-projects.png" alt="核心构成要素">
+  <figcaption>核心构成要素</figcaption>
+</figure>
+
+<p>这次项目所要开发的，是在既有 <a target="_blank" rel="noopener" href="https://github.com/knosysio/knosys">KnoSys GUI 应用</a>和 <a target="_blank" rel="noopener" href="https://github.com/ourai/selfverse">Selfverse</a> 的成果上完善出介于「个人与家庭管理系统」和「个人网站&#x2F;社区基础设施」之间的东西，有如下关键特性：</p>
+<ul>
+<li>隐藏文件、Git、IDE 等概念，尽量纯 GUI 操作，让不太懂电脑的人也能无障碍使用；</li>
+<li>自动化提交文件变更；</li>
+<li>一键将本地知识库内容部署发布到在线网站。</li>
+</ul>
+<p>本项目的技术架构大体为：</p>
+<ul>
+<li>本地 GUI 应用——<a target="_blank" rel="noopener" href="https://remix.run/">Remix</a>、<a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a>、<a target="_blank" rel="noopener" href="https://www.heroui.com/">HeroUI</a>（原名 NextUI）、Node.js；</li>
+<li>静态网站生成器——<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 或 <a target="_blank" rel="noopener" href="https://astro.build/">Astro</a>；</li>
+<li>本地文件操作——基于 KnoSys 的 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@knosys/sdk">SDK</a> 与 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ksio">CLI</a>；</li>
+<li>文件自动化——结合 Git 与 GitHub 可编程基建。</li>
+</ul>
 
 </div>
       <footer class="Article-footer col-md-3">
