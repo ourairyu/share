@@ -38,20 +38,20 @@
 
 
 
-  <title>个人工作台浏览器插件一期 - 欧雷共享的内容</title>
+  <title>个人工作台一期 - 欧雷共享的内容</title>
 
 
 <meta name="twitter:card" content="summary_large_image">
 
 
-  <meta property="og:title" content="个人工作台浏览器插件一期">
-  <meta name="twitter:title" content="个人工作台浏览器插件一期">
+  <meta property="og:title" content="个人工作台一期">
+  <meta name="twitter:title" content="个人工作台一期">
 
 
 
-  <meta name="description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta property="og:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
-  <meta name="twitter:description" content="这里罗列的是我通过公开方式共享的个人知识库内容，若要看我创作的文章、视频等，请移步「欧雷流」（https:&amp;#x2F;&amp;#x2F;ourai.ws）哟！">
+  <meta name="description" content="打造非开发者友好的 GUI 应用，以打通本地个人知识库到线上个人网站间的壁垒！">
+  <meta property="og:description" content="打造非开发者友好的 GUI 应用，以打通本地个人知识库到线上个人网站间的壁垒！">
+  <meta name="twitter:description" content="打造非开发者友好的 GUI 应用，以打通本地个人知识库到线上个人网站间的壁垒！">
 
 
 
@@ -243,17 +243,136 @@ var _hmt = _hmt || [];
       <header class="Article-header">
         
   
-    <h1 class="Article-title">个人工作台浏览器插件一期</h1>
+    <h1 class="Article-title">个人工作台一期</h1>
   
   
 
 
       </header>
       <div class="Article-content col-md-9"><p>在浏览器的新标签页中对个人知识库进行管理。由于数据操作是基于本地文件的，相关说明详见《<a href="/projects/l8jwlmqg/">基于文件系统的数据管理一期</a>》，这里只涉及与浏览器插件相关的部分。</p>
-<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ul>
-<li>可基于 FS 进行 IO</li>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>本项目有如下关键特性：</p>
+<ul>
+<li>屏蔽文件、Git、IDE 等概念，尽量纯 GUI 操作，让不太懂电脑的人也能无障碍使用；</li>
+<li>自动化提交文件变更；</li>
+<li>一键将本地知识库内容部署发布到在线网站。</li>
 </ul>
+<p>技术架构大体为：</p>
+<ul>
+<li>本地 GUI 应用——<a target="_blank" rel="noopener" href="https://remix.run/">Remix</a>、<a target="_blank" rel="noopener" href="https://tailwindcss.com/">Tailwind CSS</a>、<a target="_blank" rel="noopener" href="https://www.heroui.com/">HeroUI</a>（原名 NextUI）、<a target="_blank" rel="noopener" href="https://tiptap.dev/">Tiptap</a>、Node.js；</li>
+<li>静态网站生成器——<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 或 <a target="_blank" rel="noopener" href="https://astro.build/">Astro</a>；</li>
+<li>本地文件操作——基于 KnoSys 的 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@knosys/sdk">SDK</a> 与 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ksio">CLI</a>；</li>
+<li>文件自动化——结合 Git 与 GitHub 可编程基建。</li>
+</ul>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>架构：</p>
+<figure>
+  <img src="/knosys/projects/lfc70v9k/architecture-diagram.png" alt="架构图">
+  <figcaption>架构图</figcaption>
+</figure>
 
+<p>流程：</p>
+<figure>
+  <img src="/knosys/projects/lfc70v9k/flow-diagram.png" alt="流程图">
+  <figcaption>流程图</figcaption>
+</figure>
+
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p>项目的文件划分基本骨架为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><code class="hljs text">ROOT/<br>   ├── .knosys/         ## KnoSys 相关文件<br>   │   ├── scripts/     ## 用于 npm scripts 的脚本代码<br>   │   │   └── ...<br>   │   └── config.json  ## KnoSys 配置<br>   ├── public/<br>   │   └── ...<br>   ├── src/             ## GUI 应用源码<br>   │   ├── domain/      ## 按照 DDD 划分领域<br>   │   │   └── ...<br>   │   ├── entry/       ## 路由、页面布局等<br>   │   │   └── ...<br>   │   ├── shared/      ## 通用的类型定义、工具函数、UI 组件等<br>   │   │   └── ...<br>   │   └── ...<br>   ├── .env.example     ## 环境变量示例<br>   ├── package.json<br>   └── ...<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>domain</code> 文件夹下的文件划分模式为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><code class="hljs text">domain/<br>   └── [domain-specific-module]           ## 按照 DDD 划分的具体领域<br>       ├── views                          ## 各类视图部件（业务 UI 组件）<br>       │   ├── [detail-view]<br>       │   │   ├── [DetailView].tsx<br>       │   │   ├── ...<br>       │   │   └── index.ts<br>       │   ├── [form-view]<br>       │   │   ├── [FormView].tsx<br>       │   │   ├── ...<br>       │   │   └── index.ts<br>       │   └── [list-view]<br>       │       ├── [ListView].tsx<br>       │       ├── ...<br>       │       └── index.ts<br>       ├── widgets                        ## 可被复用的非视图类部件（业务 UI 组件）<br>       │   └── [domain-specific-widget]<br>       │       └── ...<br>       ├── helper.ts                      ## 领域特定的工具函数<br>       ├── index.ts<br>       ├── model.ts                       ## 模型定义<br>       ├── repository.ts                  ## 资源请求异步函数<br>       ├── typing.ts                      ## 领域特定的类型定义<br>       └── ...<br></code></pre></td></tr></table></figure>
+
+<p>上述表达方式中，用中括号包围起来的字符串表示需要根据具体领域以所示格式命名文件夹或文件。</p>
+<h3 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h3><p>首先，请确保 Node.js 版本号符合项目根目录下 <code>package.json</code> 中 <code>engines.node</code> 字段所指定的，包管理器推荐使用 pnpm 且版本为 v9。</p>
+<h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><p>以下依赖都使用固定版本：</p>
+<ul>
+<li>Remix v2.16.8</li>
+<li><code>tailwindcss@3.4.4</code></li>
+<li><code>@nextui-org/react@2.6.11</code></li>
+<li><code>@knosys/sdk@0.0.3</code></li>
+</ul>
+<h3 id="共享资源"><a href="#共享资源" class="headerlink" title="共享资源"></a>共享资源</h3><h3 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h3><p>需要根据下面各个模块描述章节标题中的英文在 <code>domain</code> 下创建相应的文件夹，并按上文「<a href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">目录结构</a>」部分对 <code>domain</code> 的相关描述创建文件夹、文件。</p>
+<h4 id="应用（App）"><a href="#应用（App）" class="headerlink" title="应用（App）"></a>应用（App）</h4><p>存放符合 QiiDB 数据规范的 Git 仓库称作「应用」，且默认数据源是在 <code>./data</code> 文件夹中。</p>
+<h5 id="模型字段"><a href="#模型字段" class="headerlink" title="模型字段"></a>模型字段</h5><table>
+<thead>
+<tr>
+<th>显示文本</th>
+<th>数据标识</th>
+<th>数据类型</th>
+<th>必需</th>
+<th>空值占位符</th>
+<th>提示说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称</td>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>是</td>
+<td>只允许输入小写英文字母、数字和连字符「-」与下划线「_」</td>
+<td></td>
+</tr>
+<tr>
+<td>标题</td>
+<td><code>title</code></td>
+<td><code>string</code></td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>默认路径</td>
+<td><code>path</code></td>
+<td><code>string</code></td>
+<td>是</td>
+<td>默认为 <code>:category/:collection/:slug</code></td>
+<td><code>:category</code> 部分可省略，<code>:collection</code> 不可缺少，之后的部分为记录的路径模式，详见：<a target="_blank" rel="noopener" href="https://knosysio.github.io/apis/meta/">https://knosysio.github.io/apis/meta/</a></td>
+</tr>
+<tr>
+<td>LOGO</td>
+<td><code>logo</code></td>
+<td><code>string</code></td>
+<td>否</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="AppInitializer-视图部件"><a href="#AppInitializer-视图部件" class="headerlink" title="AppInitializer 视图部件"></a><code>AppInitializer</code> 视图部件</h5><p>在应用尚未初始化时用来设置一些基本信息，是个分步表单：</p>
+<ol>
+<li>选择本地知识库所在位置，相关逻辑在 <code>AppDirForm</code> 组件中，展示字段详见下方；</li>
+<li>填写信息，相关逻辑在 <code>AppConfigForm</code> 组件中，展示所有模型字段；</li>
+<li>点击「初始化」按钮，在操作系统用户文件夹下生成应用配置文件。</li>
+</ol>
+<p>在 <code>AppDirForm</code> 中展示的字段：</p>
+<table>
+<thead>
+<tr>
+<th>显示文本</th>
+<th>数据标识</th>
+<th>数据类型</th>
+<th>必需</th>
+<th>空值占位符</th>
+<th>提示说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>根文件夹</td>
+<td><code>root</code></td>
+<td><code>string</code></td>
+<td>是</td>
+<td>数据源所在本地 Git 仓库的绝对路径</td>
+<td>macOS 可打开终端，将目标文件夹拖进去后把完整路径复制出来</td>
+</tr>
+<tr>
+<td>数据源</td>
+<td><code>source</code></td>
+<td><code>string</code></td>
+<td>否</td>
+<td>在根文件夹内的相对路径，默认为 <code>./data</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="AppForm-视图部件"><a href="#AppForm-视图部件" class="headerlink" title="AppForm 视图部件"></a><code>AppForm</code> 视图部件</h5><p>用来后续更新应用信息的表单，展示所有模型字段，其中「名称」和「标题」不可更改。</p>
+<h4 id="知识库（Collection）"><a href="#知识库（Collection）" class="headerlink" title="知识库（Collection）"></a>知识库（Collection）</h4><h5 id="CollectionList-视图部件"><a href="#CollectionList-视图部件" class="headerlink" title="CollectionList 视图部件"></a><code>CollectionList</code> 视图部件</h5><h5 id="CollectionForm-视图部件"><a href="#CollectionForm-视图部件" class="headerlink" title="CollectionForm 视图部件"></a><code>CollectionForm</code> 视图部件</h5><h4 id="知识（Qii）"><a href="#知识（Qii）" class="headerlink" title="知识（Qii）"></a>知识（Qii）</h4><h5 id="QiiList-视图部件"><a href="#QiiList-视图部件" class="headerlink" title="QiiList 视图部件"></a><code>QiiList</code> 视图部件</h5><h5 id="QiiForm-视图部件"><a href="#QiiForm-视图部件" class="headerlink" title="QiiForm 视图部件"></a><code>QiiForm</code> 视图部件</h5><h5 id="QiiDetail-视图部件"><a href="#QiiDetail-视图部件" class="headerlink" title="QiiDetail 视图部件"></a><code>QiiDetail</code> 视图部件</h5><h4 id="系统设置（Settings）"><a href="#系统设置（Settings）" class="headerlink" title="系统设置（Settings）"></a>系统设置（Settings）</h4>
 </div>
       <footer class="Article-footer col-md-3">
   
