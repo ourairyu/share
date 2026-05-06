@@ -141,7 +141,8 @@ function getAndCopyItemImages(sourceDir, distDir) {
   });
 
   if (sequenced.length > 0) {
-    imageData.sequenced = sequenced.length > 1 ? sortByName(sequenced) : sequenced;
+    // imageData.sequenced = sequenced.length > 1 ? sortByName(sequenced) : sequenced;
+    imageData.sequenced = sequenced;
   }
 
   return imageData;
